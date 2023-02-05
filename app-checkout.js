@@ -94,6 +94,17 @@ function renderCartItems() {
            <td>${item.numberOfUnits}</td><td><a id='a1' class='btn btn-success description-btn' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
     });
+};
+
+//add total price to cart
+
+function totalPrice(){
+    let totalPrice = 0, totalItems = 0;
+    cart.forEach(item => {
+        totalPrice += item.price * item.numberOfUnits;
+        totalItems += item.numberOfUnits;
+    });
+    cart.push({orderTotalPrice: totalPrice})
 }
 //change number of units for an item
 
@@ -137,8 +148,20 @@ sendButtonEl.addEventListener('click', function sendOrder() {
         alert("Your basket is empty")
         return
     }
+    console.log("cart: ", cart);
+
+    totalPrice();
+
+    let index = (cart.length - 1);
+    console.log("index", index);
+    let orderTotalPrice = JSON.stringify(cart.at((index)));
+    console.log("orderTotalPrice", orderTotalPrice);
+    cart = cart.slice(0, index);
+    
+    console.log("cart: ", cart);
     cart = JSON.stringify(cart);
     console.log("sendOrder körs");
+
     //HÄMTA IN DATA FRÅN FORMULÄRFÄLTEN
     let frakt;
     frakt = document.querySelector('input[name="flexRadioDefault"]:checked').value;
@@ -182,9 +205,9 @@ sendButtonEl.addEventListener('click', function sendOrder() {
             "email": {
                 "stringValue": email
             },
-            // "price": {
-            //     "stringValue": productPrice
-            // },
+            "orderTotalPrice": {
+                "stringValue": orderTotalPrice
+            },
             "adress": {
                 "stringValue": adress
             },

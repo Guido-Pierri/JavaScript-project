@@ -26,29 +26,47 @@ function renderJson(json) {
     let ordersArray = orders.documents;
     console.log("ordersArray: ", ordersArray);
     for (let i = 0; i < ordersArray.length; i++) {
+        
         let orderName = ordersArray[i].name;
         console.log("orderName: ", orderName);
+        
         let orderId = orderName.slice(66);
         console.log("orderId: ", orderId);
+        
         let orderDate = ordersArray[i].fields.date.timestampValue;
         console.log("orderDate: ", orderDate);
+        
         let orderDate1 = new Date(orderDate);
         console.log("orderDate1: ", orderDate1);
+        
         let orderShipping = ordersArray[i].fields.shippingMethod.stringValue;
         console.log("orderShipping: ", orderShipping);
-        // let orderPrice = ordersArray[i].fields.price.stringValue;
-        // console.log("orderPrice; ", orderPrice);
-        let orderProducts = ordersArray[i].fields.products.stringValue;
+        
+        let orderPrice = JSON.parse(ordersArray[i].fields.orderTotalPrice.stringValue);
+        console.log("orderPrice; ", orderPrice);
+        orderPrice = orderPrice.orderTotalPrice;
+        console.log("orderPrice; ", orderPrice);
+
+        let orderProducts = JSON.parse(ordersArray[i].fields.products.stringValue);
+        console.log("orderProducts", orderProducts);
+        let order = "";
+        for (let j = 0; j < orderProducts.length; j++) {
+            order += `Item id: ${orderProducts[j].id}, ${orderProducts[j].title}, `;
+            // console.log("order", order);
+            
+        }
+            console.log("order", order);
         let orderAdress = ordersArray[i].fields.adress.stringValue;
         let customerName = ordersArray[i].fields.userName.stringValue;
         let email = ordersArray[i].fields.email.stringValue;
+
         basketlistEl.innerHTML +=
             `
             <tr>
             <td>${customerName}</td>
             <td>${orderId}</td>
-            <td>${orderProducts}</td>
-            <td>1</td>
+            <td>${order}</td>
+            <td>${orderPrice}</td>
             <td>${email}</td>
             <td>${orderAdress}</td>
             <td>${orderShipping}</td>
@@ -85,77 +103,77 @@ function modifyOrder(orderId) {
     let frakt = changeDeliveryEl.value;
     let email = changeEmailEl.value;
     let itemNumber = changeItemEl.value;
-    
+
     let url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId;
     console.log("url:", url);
     fetch(url)
-    .then(res => res.json())
-    .then(json => renderJson(json));
-
-function renderJson(json){
-    let data = json;
-    console.log("data: ", data);
-    console.log("data.fields: ", data.fields );
-    let userName = data.fields.userName.stringValue;
-    let date = data.fields.date.timestampValue;
-
-
-    if (!quantity || !frakt || !price || !adress || !email ||!itemNumber) {
-        alert("You must fill in all parameters to modify an order")
-        return
-    }
-    const body = JSON.stringify({
-        "fields": {
-            "userName": {
-                "stringValue": userName
-            },
-            "email": {
-                "stringValue": email
-            },
-            "products": {
-                "arrayValue": {
-                    "values": [
-                        {
-                            "stringValue": itemNumber
-                        },
-                        {
-                            "stringValue": quantity
-                        }
-                    ]
-                }
-            },
-            "price": {
-                "stringValue": price
-            },
-            "date": {
-                "timestampValue": date
-            },
-            "shippingMethod": {
-                "stringValue": frakt
-            },
-            "adress": {
-                "stringValue": adress
-            }
-            
-  
-}
-        
-        
-    });
-
-    url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId;
-    console.log("url:", url);
-    fetch(url, {
-        method: 'PATCH',
-        headers: {
-            'content-Type': 'application/json'
-        },
-        body: body
-    })
         .then(res => res.json())
-        .then(data => console.log(data));
-}
-// setTimeout(reload,2000)
+        .then(json => renderJson(json));
+
+    function renderJson(json) {
+        let data = json;
+        console.log("data: ", data);
+        console.log("data.fields: ", data.fields);
+        let userName = data.fields.userName.stringValue;
+        let date = data.fields.date.timestampValue;
+
+
+        if (!quantity || !frakt || !price || !adress || !email || !itemNumber) {
+            alert("You must fill in all parameters to modify an order")
+            return
+        }
+        const body = JSON.stringify({
+            "fields": {
+                "userName": {
+                    "stringValue": userName
+                },
+                "email": {
+                    "stringValue": email
+                },
+                "products": {
+                    "arrayValue": {
+                        "values": [
+                            {
+                                "stringValue": itemNumber
+                            },
+                            {
+                                "stringValue": quantity
+                            }
+                        ]
+                    }
+                },
+                "price": {
+                    "stringValue": price
+                },
+                "date": {
+                    "timestampValue": date
+                },
+                "shippingMethod": {
+                    "stringValue": frakt
+                },
+                "adress": {
+                    "stringValue": adress
+                }
+
+
+            }
+
+
+        });
+
+        url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId;
+        console.log("url:", url);
+        fetch(url, {
+            method: 'PATCH',
+            headers: {
+                'content-Type': 'application/json'
+            },
+            body: body
+        })
+            .then(res => res.json())
+            .then(data => console.log(data));
+    }
+    // setTimeout(reload,2000)
 }
 
 
