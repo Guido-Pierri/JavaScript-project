@@ -1,0 +1,221 @@
+"use strict";
+fetch('https://fakestoreapi.com/products')
+    .then(res => res.json())
+    .then(json => console.log(json))
+
+const usernameEl = document.getElementById("username");
+const emailEl = document.getElementById("email");
+const adress1El = document.getElementById("adress1");
+const adress2El = document.getElementById("adress2");
+const adress3El = document.getElementById("adress3");
+const adress4El = document.getElementById("adress4");
+
+const h1El = document.getElementById("h1");
+const basketEl = document.getElementById("basketlist");
+const subtotalEl = document.getElementById("subtotal");
+const totalItemsInCartEl = document.getElementById("totalitemsincart");
+
+const fraktEl = document.getElementById("radio")
+const sendButtonEl = document.getElementById("sendButton");
+
+
+let productId = localStorage.getItem("id");
+let productTitle = localStorage.getItem("title");
+let productPrice = localStorage.getItem("price");
+console.log("id: ", productId);
+console.log("title: ", productTitle);
+console.log("price: ", productPrice);
+
+let cart = JSON.parse(localStorage.getItem("CART")) || [];
+updateCart();
+
+console.log(cart);
+
+
+//functions
+
+function addToCart(id) {
+    let productsLocal = localStorage.getItem("products");
+    let products = JSON.parse(productsLocal);
+    console.log("products: ", products);
+    console.log(id);
+
+    //check if product already exists in cart
+    if (cart.some((item) => item.id === id)) {
+        alert("Product already in cart")
+    }
+    else {
+        const item = products.find((product) => product.id === id)
+        // console.log(item);
+        cart.push({
+            ...item,
+            numberOfUnits: 1,
+        });
+        console.log(cart);
+    }
+    updateCart();
+}
+//update cart
+function updateCart() {
+    renderCartItems();
+    renderSubTotal();
+
+    //sace cart to local storage
+    localStorage.setItem("CART", JSON.stringify(cart));
+}
+
+// calculate and render subtotal
+function renderSubTotal() {
+    let totalPrice = 0, totalItems = 0;
+    cart.forEach(item => {
+        totalPrice += item.price * item.numberOfUnits;
+        totalItems += item.numberOfUnits;
+    });
+    subtotalEl.innerHTML =
+        `
+     
+    <tr>
+     <td><b><Em>Subtotal(${totalItems} items): $${totalPrice.toFixed(2)}</em></b></td>
+    </tr>     
+    `
+    totalItemsInCartEl.innerHTML = totalItems;
+};
+
+// render cart items
+function renderCartItems() {
+    basketEl.innerHTML = "";
+    cart.forEach((item) => {
+        basketEl.innerHTML +=
+            `
+           <td><img src="${item.image}" class="img-fluid" alt="${item.title}" onclick="removeItemFromCart(${item.id})"></td>
+            <td>${item.title}</td>
+            <td>${item.price}</td>
+           <td><a id='a1' class='btn btn-success description-btn' onclick="changeNumberOfUnits('minus', ${item.id})">- </a></td>
+           <td>${item.numberOfUnits}</td><td><a id='a1' class='btn btn-success description-btn' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+        `
+    });
+}
+//change number of units for an item
+
+function changeNumberOfUnits(action, id) {
+    cart = cart.map((item) => {
+        console.log(item.numberOfUnits);
+        let numberOfUnits = item.numberOfUnits;
+        console.log(numberOfUnits);
+        console.log("item.id: ", item.id);
+        console.log("id: ", id);
+        if (item.id === id) {
+            console.log("action: ", action);
+            if (action === "minus" && numberOfUnits > 1) {
+                numberOfUnits--;
+                console.log("numberOfUnits: ", numberOfUnits);
+            } else if (action === "plus") {
+                numberOfUnits++;
+            }
+        }
+        console.log("item", item);
+        return {
+            ...item,
+            numberOfUnits,
+        }
+    });
+
+    updateCart();
+}
+// remove item from cart
+function removeItemFromCart(id) {
+    cart = cart.filter((item) => item.id !== id);
+
+    updateCart();
+}
+
+
+//Eventlistener
+sendButtonEl.addEventListener('click', function sendOrder() {
+    console.log("cart.length", cart.length);
+    if (cart.length < 1) {
+        alert("Your basket is empty")
+        return
+    }
+    cart = JSON.stringify(cart);
+    console.log("sendOrder körs");
+    //HÄMTA IN DATA FRÅN FORMULÄRFÄLTEN
+    let frakt;
+    frakt = document.querySelector('input[name="flexRadioDefault"]:checked').value;
+    // if (!frakt) {
+    //     alert("Ange fraktmetod")
+    // }
+
+    // let orderTime = Timestamp.fromDate(new Date());
+    let orderTime = new Date();
+    let username = usernameEl.value;
+    let email = emailEl.value;
+    let adress = adress1El.value + ", " + adress2El.value + ", " + adress3El.value + ", " + adress4El.value;
+    let quantity = "1";
+    console.log("username: ", username);
+    console.log("orderTime: ", orderTime);
+    console.log("frakt: ", frakt);
+    console.log("email: ", email);
+    console.log("adress: ", adress);
+
+    console.log("cart: ", cart);
+    // let cartString;
+    // for (let i = 0; i < cart.length; i++) {
+    //     cartString += cart[i].title + cart[i].numberOfUnits + "\\";
+
+    // }
+    // cartString = cartString.replaceAll('.', '');
+    // console.log("cartString", cartString);
+    if (!username || !frakt || !email || !adress) {
+        alert("Du måste fylla i dina uppgifter för att skapa en order")
+        return
+    }
+    //SÄTT SAMANANVÄNDARENS VÄRDEN TILL JSON-OBJEKT
+    const body = JSON.stringify({
+        "fields": {
+            "products": {
+                "stringValue": cart
+            },
+            "date": {
+                "timestampValue": orderTime
+            },
+            "email": {
+                "stringValue": email
+            },
+            // "price": {
+            //     "stringValue": productPrice
+            // },
+            "adress": {
+                "stringValue": adress
+            },
+            "userName": {
+                "stringValue": username
+            },
+            "shippingMethod": {
+                "stringValue": frakt
+            }
+        }
+    });
+
+    //SKICKA FETCH-ANROP
+    fetch("https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders", {
+        method: 'POST',
+        headers: {
+            'content-Type': 'application/json'
+        },
+        body: body
+    })
+        .then(res => res.json())
+        .then(data => console.log(data));
+    // localStorage.clear();
+    // setTimeout(finnishOrder, 2000);
+});
+
+
+// function reload() {
+//     console.log("reload() körs");
+//     location.reload();
+// }
+function finnishOrder() {
+    location.assign("http://127.0.0.1:5500/order.html")
+}

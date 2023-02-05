@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Basket</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid d-flex justify-content-between"">
+                <a class=" navbar-brand" href="index.html">
+            <img width="30" src="./online-shop.png" alt=""> Online Oasis</a>
+            <div class="d-flex justify-content-start">
+                <a href="/checkout.html">
+                    <img width="30" src="./bag.png" style=" margin-left: 10px;
+                            padding: 5px; border-radius: 5px; background-color: aqua; color: rgb(247, 0, 255);" alt="cart"
+                        class="d-flex justify-content-start">
+                </a>
+                <div id="totalitemsincart" class="d-flex justify-content-start" style=" margin-left: 10px;
+                            padding: 5px; border-radius: 5px; background-color: aqua; color: rgb(247, 0, 255);">
+                </div>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a id="men" class="dropdown-item" href="category-mens.html">Men's clothing</a></li>
+                            <li><a id="women" class="dropdown-item" href="category-womens.html">Women's clothing</a>
+                            </li>
+                            <li><a id="jewelery" class="dropdown-item" href="category-jewelery.html">Jewelery</a></li>
+                            <li><a id="electronics" class="dropdown-item" href="category-electronics.html">Electronics</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    
+    </nav>
+    <h1 id="h1"></h1>
+    <h2 id="h2">Please register to check out</h2>
+    <form>
+        <label for="username">Enter your First and Last Name</label>
+        <input type="text" name="username" id="username">
+        <br>
+        <label for="email">Enter your email</label>
+        <br>
+        <input type="email" name="email" id="email">
+        <br>
+        <label for="adress1">Enter your street nam and number</label>
+        <br>
+        <input type="text" name="adress1" id="adress1">
+        <br>
+        <label for="adress2">Enter your postal code</label>
+        <br>
+        <input type="text" name="adress2" id="adress2">
+        <br>
+        <label for="adress3">Enter your city</label>
+        <br>
+        <input type="text" name="adress3" id="adress3">
+        <br>
+        <label for="adress4">Enter your country</label>
+        <br>
+        <input type="text" name="adress4" id="adress4">
+        <br><br>
+        <p>Välj fraktform</p>
+        <div class="form-check" id="radio">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" value="PostNord" id="flexRadioDefault1"
+                checked>
+            <label class="form-check-label" for="flexRadioDefault1">
+                PostNord
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" value="DHL" id="flexRadioDefault2">
+            <label class="form-check-label" for="flexRadioDefault2">
+                DHL
+            </label>
+        </div>
+        <br>
+    </form>
+    <h3 id="h3">Products in you basket</h3>
+    <table id="basketlist" class="table">
+        <tr>
+            <th></th>
+            <th>Item</th>
+            <th>Price</th>
+            <th>Quantity</th>
+        </tr>
+    </table>
+<table class="table">
+    <tbody width="100%" id="subtotal">
+        <th width="100%">subtotal</th>
+    </tbody>
+</table>
+    <button id="sendButton">Send your order</button>
+
+    <script src="app.js"></script>
+    <script src="app-checkout.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+.btn {
+    border-radius: 50%;
+}
+
+.btn-success {
+    display: flex;
+    width: 20px;
+    height: 20px;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0%;
+}
+
+.description-btn {
+    width: 100%;
+        height: 100%;
+        border-radius: 5px;
+}
+
+/* #a1{
+border-radius: 50%;
+} */
