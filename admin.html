@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body class="text-center">
@@ -14,12 +15,12 @@
     <section id="main-section" style=padding:10%>
         <table id="basketlist" class="table">
             <tr>
-                <th>Customer name</th>
                 <th>Order id</th>
-                <th>Products</th>
-                <th>Total Value</th>
-                <th>Email</th>
+                <th>Customer name</th>
                 <th>Adress</th>
+                <th>Products</th>
+                <th>Total price</th>
+                <th>Email</th>
                 <th>Shipping Method</th>
             </tr>
         </table>
@@ -28,31 +29,30 @@
         <form id="form" class="visually-hidden">
             <h2>Modify order</h2><br><br>
             <div class="form-floating mb-3">
-                <input class="form-control changeItem" placeholder="Change item number" id="changeItem"
-                    name="changeItem">
-                <label for="changeItem">Change Item number</label>
-            </div>
-            <div class="form-floating">
-                <input class="form-control changePrice" placeholder="Change price" id="changePrice">
-                <label for="changePrice">Change Price</label>
-            </div>
-            <div class="form-floating">
-                <input class="form-control changeQty" placeholder="Chenge Quantity" id="changeQty">
-                <label for="changeQty">Change quantity</label>
-            </div>
-            <!-- <div class="form-floating mb-3">
+                <input class="form-control changeId" placeholder="Change order Id" id="changeid">
+                <label for="changeid">Change order Id</label>
+             </div>
+            <div class="form-floating mb-3">
                 <input class="form-control changeCustomer" placeholder="Change customer" id="changeCustomer">
-                <label for="changeCustomer">Change customer</label>
-            </div> -->
+                <label for="changeCustomer">Change customer name</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input class="form-control changeAdress" placeholder="Change adress" id="changeAdress"
+                    name="changeAdress">
+                <label for="changeAdress">Change adress</label>
+            </div>
             <div class="form-floating mb-3">
                 <input class="form-control changeEmail" placeholder="Change Email" id="changeEmail">
                 <label for="changeEmail">Change Email</label>
             </div>
-                <div class="form-floating mb-3">
-                    <input class="form-control changeAdress" placeholder="Change adress" id="changeAdress"
-                        name="changeAdress">
-                    <label for="changeAdress">Change andress</label>
-                </div>
+            <div class="form-floating">
+                <input class="form-control products" placeholder="Change products" id="changeproducts">
+                <label for="changeproducts">Change products</label>
+            <div class="form-floating">
+                <input class="form-control changePrice" placeholder="Change price" id="changePrice">
+                <label for="changePrice">Change total Price</label>
+            </div>
+            </div>
                 <div class="form-floating">
                     <select class="form-select" id="changeDelivery">
                         <option selected>Change delivery method</option>
@@ -61,6 +61,7 @@
                     </select>
                     <label for="changeDelivery">Change delivery method</label>
                 </div>
+                <button id="modify">Commit changes to order order</button><br><br>
         </form>
     </section>
     <script src="app-admin.js"></script>
