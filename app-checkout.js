@@ -143,6 +143,7 @@ function removeItemFromCart(id) {
 
 //Eventlistener
 sendButtonEl.addEventListener('click', function sendOrder() {
+    console.log("sendOrder körs");
     console.log("cart.length", cart.length);
     if (cart.length < 1) {
         alert("Your basket is empty")
@@ -159,8 +160,13 @@ sendButtonEl.addEventListener('click', function sendOrder() {
     cart = cart.slice(0, index);
     
     console.log("cart: ", cart);
-    cart = JSON.stringify(cart);
-    console.log("sendOrder körs");
+let cartIds = "";
+    for (let i = 0; i < cart.length; i++) {
+         cartIds += cart[i].id + ", ";
+        
+    }
+    console.log("cart.id", cartIds);
+    // cart = JSON.stringify(cart);
 
     //HÄMTA IN DATA FRÅN FORMULÄRFÄLTEN
     let frakt;
@@ -197,7 +203,7 @@ sendButtonEl.addEventListener('click', function sendOrder() {
     const body = JSON.stringify({
         "fields": {
             "products": {
-                "stringValue": cart
+                "stringValue": cartIds
             },
             "date": {
                 "timestampValue": orderTime

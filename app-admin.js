@@ -48,28 +48,29 @@ function renderJson(json) {
         console.log("orderPrice; ", orderPrice);
         orderPrice = orderPrice.orderTotalPrice;
         console.log("orderPrice; ", orderPrice);
-        // let orderProducts = (ordersArray[i].fields.products.stringValue);
-        // let tableContent = orderProducts;
+        let orderProducts = (ordersArray[i].fields.products.stringValue);
+        let tableContent = orderProducts;
 
         //create unordered list of products
-        let orderProducts = JSON.parse(ordersArray[i].fields.products.stringValue);
-        console.log("orderProducts", orderProducts);
-        var tableContent = '<ul class="list-group list-group-flush">';
-        for (let index = 0; index < orderProducts.length; index++) {
-            tableContent += `<li>ITEM: ${orderProducts[index].title},</li>`;
-            // nameCounter++;  // I don't know if this should be there, 
-            // logically the counter should be incremented here as well?
-            // total.innerHTML = "Total: " + nameCounter;
-        }
-        tableContent += '</ul>';
-        let order = "";
-        for (let j = 0; j < orderProducts.length; j++) {
-            order += `Item nr${j + 1}:Item id: ${orderProducts[j].id}, ${orderProducts[j].title},
-             `;
-            // console.log("order", order);
 
-        }
-            console.log("order", order);
+        // let orderProducts = JSON.parse(ordersArray[i].fields.products.stringValue);
+        // console.log("orderProducts", orderProducts);
+        // var tableContent = '<ul class="list-group list-group-flush">';
+        // for (let index = 0; index < orderProducts.length; index++) {
+        //     tableContent += `<li>ITEM: ${orderProducts[index].title},</li>`;
+        //     // nameCounter++;  // I don't know if this should be there, 
+        //     // logically the counter should be incremented here as well?
+        //     // total.innerHTML = "Total: " + nameCounter;
+        // }
+        // tableContent += '</ul>';
+        // let order = "";
+        // for (let j = 0; j < orderProducts.length; j++) {
+        //     order += `Item nr${j + 1}:Item id: ${orderProducts[j].id}, ${orderProducts[j].title},
+        //      `;
+        //     // console.log("order", order);
+
+        // }
+        // console.log("order", order);
         let orderAdress = ordersArray[i].fields.adress.stringValue;
         let customerName = ordersArray[i].fields.userName.stringValue;
         let email = ordersArray[i].fields.email.stringValue;
@@ -121,19 +122,32 @@ function reload() {
     location.reload();
 }
 function finnishOrder() {
-    location.assign("http://127.0.0.1:5500/order.html")
+    location.assign("/order.html")
 }
 
 function showForm(data) {
     console.log("show form");
-    formEl.removeAttribute("class")
-    changeidEl.scrollIntoView()
+    formEl.removeAttribute("class");
+    changeCustomerEl.scrollIntoView();
     let orderId1 = data;
     console.log("orderId1:", orderId1);
+    let url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId1;
+    fetch(url)
+        .then(res => res.json())
+        .then(json => renderJson2(json));
 
+    function renderJson2(json) {
+        console.log(json);
+        changeCustomerEl.value = json.fields.userName.stringValue;
+        changeAdressEl.value = json.fields.adress.stringValue;
+        changeEmailEl.value = json.fields.email.stringValue;
+        changeproductsEl.value = json.fields.products.stringValue;
+        changePriceEl.value = JSON.parse(json.fields.orderTotalPrice.stringValue).orderTotalPrice;
+        console.log(JSON.parse(json.fields.orderTotalPrice.stringValue).orderTotalPrice);
+}
 
     function modifyOrder() {
-       let orderId = localStorage.getItem("ID");
+        let orderId = localStorage.getItem("ID");
         console.log("orderID:", orderId);
         alert("modifyOrder ");
         let adress = changeAdressEl.value;
@@ -142,7 +156,7 @@ function showForm(data) {
         let email = changeEmailEl.value;
         let idNumber = changeidEl.value;
         let order = `[{${changeproductsEl.value}}]`;
-        
+
         let userName = changeCustomerEl.value;
 
         let url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId;
@@ -206,7 +220,7 @@ function showForm(data) {
         }
         // setTimeout(reload,2000)
     }
-    modifybuttonEL.addEventListener('click', modifyOrder )
+    modifybuttonEL.addEventListener('click', modifyOrder)
 }
 
 
