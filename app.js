@@ -42,8 +42,7 @@ const subtotalEl = document.getElementById("subtotal");
 const totalItemsInCartEl = document.getElementById("totalitemsincart");
 
 
-console.log(localStorage.getItem("USD")
-);
+console.log(localStorage.getItem("USD"));
 
 getRate();
 function getRate() {
