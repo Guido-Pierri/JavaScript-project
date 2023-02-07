@@ -87,7 +87,7 @@ function renderCartItems() {
     cart.forEach((item) => {
         basketEl.innerHTML +=
             `
-           <td><img src="${item.image}" class="img-fluid" alt="${item.title}" onclick="removeItemFromCart(${item.id})"></td>
+           <td><img src="${item.image}" class="img-fluid" alt="${item.title}" style="max-width: 100px"; onclick="removeItemFromCart(${item.id})"></td>
             <td>${item.title}</td>
             <td>${item.price}</td>
            <td><a id='a1' class='btn btn-success description-btn' onclick="changeNumberOfUnits('minus', ${item.id})">- </a></td>

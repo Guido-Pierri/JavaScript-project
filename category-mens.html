@@ -13,26 +13,13 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid d-flex justify-content-between"">
-            <a class=" navbar-brand" href="index.html">
-            <img width="30" src="./online-shop.png" alt=""> Online Oasis</a>
-            <div class="d-flex justify-content-start">
-                <a href="/checkout.html" style="position: absolute; z-index: 1; top: 0; left: 100;">
-                    <img width="50" src="./bag.png" style=" margin-left: 10px;
-                        padding: 5px; border-radius: 5px; color: rgb(247, 0, 255);" alt="cart"
-                        class="d-flex justify-content-start">
-                    </a>
-                    <div id="totalitemsincart" class="d-flex justify-content-start" style="padding: 5px; border-radius: 50%;">
-                    </div>
-            </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary ">
+        <div class="container-fluid d-flex justify-content-between">
+            <a class="navbar-brand" href="index.html">
+                <img width="60" src="./store.png" alt=""> Online Oasis</a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
+    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
@@ -43,19 +30,32 @@
                             <li><a id="women" class="dropdown-item" href="category-womens.html">Women's clothing</a>
                             </li>
                             <li><a id="jewelery" class="dropdown-item" href="category-jewelery.html">Jewelery</a></li>
-                            <li><a id="electronics" class="dropdown-item"
-                                    href="category-electronics.html">Electronics</a></li>
+                            <li><a id="electronics" class="dropdown-item" href="category-electronics.html">Electronics</a>
+                            </li>
                         </ul>
                     </li>
                 </ul>
             </div>
-        </div>
-
-    </nav>
-    <br>
+            <div class="d-flex">
+                <div class="d-flex position-relative">
+                    <a href="/checkout.html" style="padding: 0;">
+                        <img width="60" src="./shopping-bag.png" alt="cart" class="d-flex justify-content-start">
+                    </a>
+                    <div id="totalitemsincart"
+                        class="navbar-brand position-absolute top-50 start-50 translate-middle text-wrap fs-6"
+                        style="padding-top: 20px;"></div>
+                </div>
+            </div>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
     
-    <h1>Basket</h1>
-    <section>
+        </div>
+    </nav>
+    
+    <section class="visually-hidden" id="basket">
+    <h1 class="text-center">Basket</h1>
         <table class="table">
             <thead>
                 <tr>
@@ -66,7 +66,7 @@
                     <th></th>
                 </tr>
             </thead>
-            <tbody id="basket">
+            <tbody id="basketlist">
             </tbody>
         </table>
         <table class="table">
@@ -75,7 +75,7 @@
             </tbody>
         </table>
     </section>
-    <h1>Men's Clothing</h1>
+    <h1 class="text-center">Men's Clothing</h1>
     <!-- <section id="intro">
         <article style="padding: 10%;">
             <p>Welcome to our webshop! We are a team of passionate individuals who believe in providing our customers with the best
@@ -97,7 +97,7 @@
         </article>
     </section> -->
     <section id="main-section">
-    <article id="products" style=padding:10%>
+    <article id="products" class="card-group" style=padding:10%>
 
     </article>
     </section>

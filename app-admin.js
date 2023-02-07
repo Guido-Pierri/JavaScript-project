@@ -48,28 +48,28 @@ function renderJson(json) {
         console.log("orderPrice; ", orderPrice);
         orderPrice = orderPrice.orderTotalPrice;
         console.log("orderPrice; ", orderPrice);
-        let orderProducts = (ordersArray[i].fields.products.stringValue);
-        let tableContent = orderProducts;
+        // let orderProducts = (ordersArray[i].fields.products.stringValue);
+        // let tableContent = orderProducts;
 
-        // //create unordered list of products
-        // let orderProducts = JSON.parse(ordersArray[i].fields.products.stringValue);
-        // console.log("orderProducts", orderProducts);
-        // var tableContent = '<ul class="list-group list-group-flush">';
-        // for (let index = 0; index < orderProducts.length; index++) {
-        //     tableContent += `<li>ITEM: ${orderProducts[index].title},</li>`;
-        //     // nameCounter++;  // I don't know if this should be there, 
-        //     // logically the counter should be incremented here as well?
-        //     // total.innerHTML = "Total: " + nameCounter;
-        // }
-        // tableContent += '</ul>';
-        // let order = "";
-        // for (let j = 0; j < orderProducts.length; j++) {
-        //     order += `Item nr${j + 1}:Item id: ${orderProducts[j].id}, ${orderProducts[j].title},
-        //      `;
-        //     // console.log("order", order);
+        //create unordered list of products
+        let orderProducts = JSON.parse(ordersArray[i].fields.products.stringValue);
+        console.log("orderProducts", orderProducts);
+        var tableContent = '<ul class="list-group list-group-flush">';
+        for (let index = 0; index < orderProducts.length; index++) {
+            tableContent += `<li>ITEM: ${orderProducts[index].title},</li>`;
+            // nameCounter++;  // I don't know if this should be there, 
+            // logically the counter should be incremented here as well?
+            // total.innerHTML = "Total: " + nameCounter;
+        }
+        tableContent += '</ul>';
+        let order = "";
+        for (let j = 0; j < orderProducts.length; j++) {
+            order += `Item nr${j + 1}:Item id: ${orderProducts[j].id}, ${orderProducts[j].title},
+             `;
+            // console.log("order", order);
 
-        // }
-        //     console.log("order", order);
+        }
+            console.log("order", order);
         let orderAdress = ordersArray[i].fields.adress.stringValue;
         let customerName = ordersArray[i].fields.userName.stringValue;
         let email = ordersArray[i].fields.email.stringValue;

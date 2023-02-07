@@ -36,6 +36,7 @@
 
 const productsEl = document.getElementById("products");
 const menEl = document.getElementById("men");
+const basketlistEl = document.getElementById("basketlist");
 const basketEl = document.getElementById("basket");
 const subtotalEl = document.getElementById("subtotal");
 const totalItemsInCartEl = document.getElementById("totalitemsincart");
@@ -60,21 +61,22 @@ function renderJson(json1) {
         // console.log("json:",jsonobject);
         // console.log("values: ", values);
 
-        const pEl = document.getElementById("p1");
         if (category === "men's clothing") {
             productsEl.innerHTML += `
-            <div class='card' style="width: 18rem;"> 
-            <figure class="figure card border border-white"> 
-            <img class="class="card-img-top img-fluid rounded border border-white" src="${productImage}">
-            </figure> 
-            <div class='card-body'> 
-            <h5 class="card-title">${productTitle}</h5>
-            <p id='p1' class='card-text description-text'>
-            ${description}
-            </p>
-            <a id='a1' class='btn btn-success description-btn' role="button" onclick='addToCart(${productId});'><b>Buy this product<br>
-                    ${price}</b></a>
-                     </div>
+            <div class="card-group">
+            <div class='card' style="width: 18rem;">
+            <img class="class="card-img-top" src="${productImage}" max-height=775px>
+           <div class="card-img-overlay">
+            <img src="add-to-cart.png" class="float-end rounded-circle" id='a1' width=60px; height=60px; style="background-color: rgba(41, 219, 160, 0.74);"  role="button" onclick='addToCart(${productId}); showBasket()'>
+            </div>
+                <div class="card-body d-flex flex-column mb-3 justify-content-end">
+               
+                <div class="p-2"><p class="card-text d-inline-block text-truncate" style="max-width: 18rem;"><b>${productTitle}</b></p></div>
+               
+                </div>
+                <div class="card-footer" style="">
+                <b>${price}</b></div>
+                </div>
                 </div>`;
         }
     }
@@ -83,7 +85,16 @@ function renderJson(json1) {
 
 //cart array
 let cart = JSON.parse(localStorage.getItem("CART")) || [];
+console.log("cart", cart);
+console.log("cart.length", cart.length);
 
+if (cart.length < 1) {
+    basketEl.className = "invisible";
+
+} else {
+    basketEl.className = "";
+
+}
 updateCart();
 
 //functions
@@ -137,15 +148,16 @@ function renderSubTotal() {
 
 // render cart items
 function renderCartItems() {
-    basketEl.innerHTML = "";
+    basketlistEl.innerHTML = "";
     cart.forEach((item) => {
-        basketEl.innerHTML +=
+        basketlistEl.innerHTML +=
             `
-           <td><img src="${item.image}" class="img-fluid" alt="${item.title}" onclick="removeItemFromCart(${item.id})"></td>
+           <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 100px"></td>
             <td>${item.title}</td>
             <td>${item.price}</td>
            <td><a id='a1' role="button" class='btn btn-success' onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
-           <td>${item.numberOfUnits}</td><td><a id='a1' role="button" class='btn btn-success' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+           <td>${item.numberOfUnits}</td><td><a id='a1' role="button" 
+           class='btn btn-success' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
     });
 }
@@ -178,7 +190,16 @@ function changeNumberOfUnits(action, id) {
 }
 // remove item from cart
 function removeItemFromCart(id) {
+    console.log("removeItemFromCart");
     cart = cart.filter((item) => item.id !== id);
+    if (cart.length === 0) {
+        basketEl.className = "invisible"
+    }
 
     updateCart();
+}
+function showBasket() {
+    console.log("showBasket");
+    basketEl.className = "";
+
 }
