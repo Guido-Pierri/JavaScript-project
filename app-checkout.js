@@ -239,7 +239,7 @@ sendButtonEl.addEventListener('click', function sendOrder() {
         .then(res => res.json())
         .then(data => console.log(data));
     // localStorage.clear();
-    // setTimeout(finnishOrder, 2000);
+    setTimeout(finnishOrder, 2000);
 });
 
 
@@ -248,5 +248,5 @@ sendButtonEl.addEventListener('click', function sendOrder() {
 //     location.reload();
 // }
 function finnishOrder() {
-    location.assign("http://127.0.0.1:5500/order.html")
+    location.assign("/order.html")
 }
