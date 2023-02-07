@@ -44,10 +44,10 @@ function renderJson(json) {
         let orderShipping = ordersArray[i].fields.shippingMethod.stringValue;
         console.log("orderShipping: ", orderShipping);
 
-        let orderPrice = JSON.parse(ordersArray[i].fields.orderTotalPrice.stringValue);
+        let orderPrice = (ordersArray[i].fields.orderTotalPrice.stringValue);
         console.log("orderPrice; ", orderPrice);
-        orderPrice = orderPrice.orderTotalPrice;
-        console.log("orderPrice; ", orderPrice);
+        // orderPrice = orderPrice.orderTotalPrice;
+        // console.log("orderPrice; ", orderPrice);
         let orderProducts = (ordersArray[i].fields.products.stringValue);
         let tableContent = orderProducts;
 

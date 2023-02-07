@@ -98,13 +98,13 @@ function renderCartItems() {
 
 //add total price to cart
 
-function totalPrice(){
+function totalPrice() {
     let totalPrice = 0, totalItems = 0;
     cart.forEach(item => {
         totalPrice += item.price * item.numberOfUnits;
         totalItems += item.numberOfUnits;
     });
-    cart.push({orderTotalPrice: totalPrice})
+    cart.push({ orderTotalPrice: totalPrice })
 }
 //change number of units for an item
 
@@ -155,15 +155,17 @@ sendButtonEl.addEventListener('click', function sendOrder() {
 
     let index = (cart.length - 1);
     console.log("index", index);
-    let orderTotalPrice = JSON.stringify(cart.at((index)));
-    console.log("orderTotalPrice", orderTotalPrice);
+    let orderTotalPrice = cart.at((index));
+    console.log("orderTotalPrice: ", orderTotalPrice.orderTotalPrice);
+    orderTotalPrice = JSON.stringify(orderTotalPrice.orderTotalPrice);
+    console.log("orderTotalPrice:", orderTotalPrice);
     cart = cart.slice(0, index);
-    
+
     console.log("cart: ", cart);
-let cartIds = "";
+    let cartIds = "";
     for (let i = 0; i < cart.length; i++) {
-         cartIds += cart[i].id + ", ";
-        
+        cartIds += cart[i].id + ", ";
+
     }
     console.log("cart.id", cartIds);
     // cart = JSON.stringify(cart);
