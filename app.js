@@ -41,15 +41,15 @@ const basketEl = document.getElementById("basket");
 const subtotalEl = document.getElementById("subtotal");
 const totalItemsInCartEl = document.getElementById("totalitemsincart");
 const carticonEl = document.getElementById("carticon");
-
+const checkoutbuttonEl = document.getElementById("checkoutbutton");
 
 console.log(localStorage.getItem("USD"));
 getRate();
 function getRate() {
     fetch('https://api.valuta.se/api/sek/rates/')
-    .then(res => res.json())
-    .then(data => render(data));
-    
+        .then(res => res.json())
+        .then(data => render(data));
+
     function render(rates) {
         console.log(rates);
         let arr = rates;
@@ -60,77 +60,79 @@ function getRate() {
 }
 
 fetch('https://fakestoreapi.com/products')
-.then(res => res.json())
-.then(json1 => renderJson(json1))
+    .then(res => res.json())
+    .then(json1 => renderJson(json1))
 // .catch (error => console.log(error));
 
 function renderJson(json1) {
     let products = json1;
     console.log(products);
-    
+
     //fetch currency exchane
-    
-    
-    
+
+
+
     localStorage.setItem('products', JSON.stringify(products));
-    
+
     productsEl.innerHTML = "";
     for (let i = 0; i < products.length; i++) {
         let productTitle = products[i].title;
         let productImage = products[i].image;
         let description = products[i].description;
         let category = products[i].category;
-        
+
         let price = products[i].price * localStorage.getItem("USD");
         price = price.toFixed(0);
         let productId = products[i].id;
         // console.log("json:",jsonobject);
         // console.log("values: ", values);
-        
+
         // if (category === "men's clothing") {
-            productsEl.innerHTML += `
-            <div class="card-group">
-            <div class='card' style="width: 18rem;">
+        productsEl.innerHTML += `
+            <div class="card-group border-white d-flex m-5" >
+            <div class='card border border-0' style="width: 18rem;">
             <img class="class="card-img-top" src="${productImage}" max-height=775px>
            <div class="card-img-overlay">
-           <img src="add-to-cart.png" class="float-end rounded-circle" id='a1' width=60px; height=60px; style="background-color: rgba(41, 219, 160, 0.74);"  role="button" onclick='addToCart(${productId}); showBasket()'>
+           <img src="add-to-cart.png" class="float-end rounded-circle" id='a1' width=50px; height=50px; style="background-color: rgba(41, 219, 160, 0.74);"  role="button" onclick='addToCart(${productId}); showBasket()'>
            </div>
            <div class="card-body d-flex flex-column mb-3 justify-content-end">
            
-           <div class="p-2"><p class="card-text d-inline-block text-truncate" style="max-width: 200px;"><b>${productTitle}</b></p></div>
-           
+           <div class="p-2"><p class="card-text d-inline-block text-truncate" style="max-width: 200px;"><b>${productTitle}</b></p>
+           <p><b>${price} kr.</b></p></div>
            </div>
-           <div class="card-footer" style="">
-           <b>${price} kr.</b></div>
+           </div>
+           <div class="card-footer border border-0" style="">
            </div>
            </div>`;
-           // }
-        }
-        ;
+        // }
     }
-    
-    //cart array
-    let cart = JSON.parse(localStorage.getItem("CART")) || [];
-    console.log("cart", cart);
-    console.log("cart.length", cart.length);
-    
-    if (cart.length < 1) {
-        basketEl.className = "invisible";
-        
-    } else {
-        basketEl.className = "";
-        
-    }
-    updateCart();
-    showCartIcon();
-    
-    //functions
-    
-    function addToCart(id) {
+    ;
+}
+
+//cart array
+let cart = JSON.parse(localStorage.getItem("CART")) || [];
+console.log("cart", cart);
+console.log("cart.length", cart.length);
+
+if (cart.length < 1) {
+    basketEl.className = "invisible";
+
+} else {
+    basketEl.className = "";
+
+}
+updateCart();
+showCartIcon();
+
+//functions
+
+function addToCart(id) {
+
     let productsLocal = localStorage.getItem("products");
     let products = JSON.parse(productsLocal);
     console.log("products: ", products);
     console.log(id);
+    basketEl.scrollIntoView();
 
     //check if product already exists in cart
     if (cart.some((item) => item.id === id)) {
@@ -167,10 +169,8 @@ function renderSubTotal() {
     });
     subtotalEl.innerHTML =
         `
-     
-    <tr>
-     <td><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></td>
-    </tr>     
+    <td>
+     <b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></td>
     `
     totalItemsInCartEl.innerHTML = totalItems;
 };
@@ -181,7 +181,7 @@ function renderCartItems() {
     cart.forEach((item) => {
         let price = item.price * localStorage.getItem("USD");
         price = price.toFixed(0);
-                basketlistEl.innerHTML +=
+        basketlistEl.innerHTML +=
             `
            <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 100px"></td>
             <td>${item.title}</td>
@@ -228,6 +228,7 @@ function removeItemFromCart(id) {
     }
 
     updateCart();
+    showCartIcon();
 }
 function showBasket() {
     console.log("showBasket");
@@ -235,10 +236,14 @@ function showBasket() {
 
 }
 function showCartIcon() {
-    
-    if (cart.length <1) {
-        carticonEl.className = "invisible";
-    }else{
+
+    if (cart.length < 1) {
+        carticonEl.className = "visually-hidden";
+        checkoutbuttonEl.className = "visually-hidden";
+
+    } else {
         carticonEl.className = "visible d-flex position-relative";
+        checkoutbuttonEl.className = "btn btn-primary position-fixed bottom-0 end-0 visible";
+
     }
 }
