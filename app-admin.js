@@ -142,8 +142,8 @@ function showForm(data) {
         changeAdressEl.value = json.fields.adress.stringValue;
         changeEmailEl.value = json.fields.email.stringValue;
         changeproductsEl.value = json.fields.products.stringValue;
-        changePriceEl.value = JSON.parse(json.fields.orderTotalPrice.stringValue).orderTotalPrice;
-        console.log(JSON.parse(json.fields.orderTotalPrice.stringValue).orderTotalPrice);
+        changePriceEl.value = json.fields.orderTotalPrice.stringValue;
+        console.log(json.fields.orderTotalPrice.stringValue);
 }
 
     function modifyOrder() {
