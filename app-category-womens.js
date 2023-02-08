@@ -1,7 +1,7 @@
 /**
      KravFör godkänt betyg (G)
  
-     * 1.Alla produkter från det öppna API:et visas på webbplatsen med all data omvarje produkt. 
+     * 1.Alla produkter från det öppna API:et visas på webbplatsen med all data om varje produkt. 
  
      * 2.Det går att beställa produkter(genom att klicka på “köp”-knapp)och användaren ska då behövaskicka 
         med namn, e-post, adress samt välja fraktvillkor(det ska inte gå att skicka beställningar utan att 
@@ -40,10 +40,10 @@ const basketlistEl = document.getElementById("basketlist");
 const basketEl = document.getElementById("basket");
 const subtotalEl = document.getElementById("subtotal");
 const totalItemsInCartEl = document.getElementById("totalitemsincart");
-
+const carticonEl = document.getElementById("carticon");
+const checkoutbuttonEl = document.getElementById("checkoutbutton");
 
 console.log(localStorage.getItem("USD"));
-
 getRate();
 function getRate() {
     fetch('https://api.valuta.se/api/sek/rates/')
@@ -89,26 +89,26 @@ function renderJson(json1) {
 
         if (category === "women's clothing") {
             productsEl.innerHTML += `
-            <div class="card-group">
-            <div class='card' style="width: 18rem;">
+            <div class="card-group border-white d-flex m-5" >
+            <div class='card border border-0' style="width: 18rem;">
             <img class="class="card-img-top" src="${productImage}" max-height=775px>
            <div class="card-img-overlay">
-            <img src="add-to-cart.png" class="float-end rounded-circle" id='a1' width=60px; height=60px; style="background-color: rgba(41, 219, 160, 0.74);"  role="button" onclick='addToCart(${productId}); showBasket()'>
-            </div>
-                <div class="card-body d-flex flex-column mb-3 justify-content-end">
-               
-                <div class="p-2"><p class="card-text d-inline-block text-truncate" style="max-width: 200px;"><b>${productTitle}</b></p></div>
-               
-                </div>
-                <div class="card-footer" style="">
-                <b>${price} kr.</b></div>
-                </div>
-                </div>`;
-            // }
+           <img src="add-to-cart.png" class="float-end rounded-circle" id='a1' width=50px; height=50px; style="background-color: rgba(41, 219, 160, 0.74);"  role="button" onclick='addToCart(${productId}); showBasket()'>
+           </div>
+           <div class="card-body d-flex flex-column mb-3 justify-content-end">
+           
+           <div class="p-2"><p class="card-text d-inline-block text-truncate" style="max-width: 200px;"><b>${productTitle}</b></p>
+           <p><b>${price} kr.</b></p></div>
+           </div>
+           </div>
+           <div class="card-footer border border-0" style="">
+           </div>
+           </div>`;
         }
-        ;
     }
+    ;
 }
+
 //cart array
 let cart = JSON.parse(localStorage.getItem("CART")) || [];
 console.log("cart", cart);
@@ -122,14 +122,17 @@ if (cart.length < 1) {
 
 }
 updateCart();
+showCartIcon();
 
 //functions
 
 function addToCart(id) {
+
     let productsLocal = localStorage.getItem("products");
     let products = JSON.parse(productsLocal);
     console.log("products: ", products);
     console.log(id);
+    basketEl.scrollIntoView();
 
     //check if product already exists in cart
     if (cart.some((item) => item.id === id)) {
@@ -150,6 +153,8 @@ function addToCart(id) {
 function updateCart() {
     renderCartItems();
     renderSubTotal();
+    showCartIcon();
+
 
     //sace cart to local storage
     localStorage.setItem("CART", JSON.stringify(cart));
@@ -164,10 +169,8 @@ function renderSubTotal() {
     });
     subtotalEl.innerHTML =
         `
-     
-    <tr>
-     <td><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></td>
-    </tr>     
+    <td>
+     <b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></td>
     `
     totalItemsInCartEl.innerHTML = totalItems;
 };
@@ -225,9 +228,22 @@ function removeItemFromCart(id) {
     }
 
     updateCart();
+    showCartIcon();
 }
 function showBasket() {
     console.log("showBasket");
     basketEl.className = "";
 
+}
+function showCartIcon() {
+
+    if (cart.length < 1) {
+        carticonEl.className = "visually-hidden";
+        checkoutbuttonEl.className = "visually-hidden";
+
+    } else {
+        carticonEl.className = "visible d-flex position-relative";
+        checkoutbuttonEl.className = "btn btn-primary position-fixed bottom-0 end-0 visible";
+
+    }
 }

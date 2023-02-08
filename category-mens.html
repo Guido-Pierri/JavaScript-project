@@ -19,10 +19,9 @@
                 <img width="60" src="./oasis.png" alt=""> Online Oasis</a>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
+    
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
+                        <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Categories
                         </a>
                         <ul class="dropdown-menu">
@@ -30,15 +29,60 @@
                             <li><a id="women" class="dropdown-item" href="category-womens.html">Women's clothing</a>
                             </li>
                             <li><a id="jewelery" class="dropdown-item" href="category-jewelery.html">Jewelery</a></li>
-                            <li><a id="electronics" class="dropdown-item"
-                                    href="category-electronics.html">Electronics</a>
+                            <li><a id="electronics" class="dropdown-item" href="category-electronics.html">Electronics</a>
                             </li>
                         </ul>
                     </li>
                 </ul>
             </div>
-            <div class="d-flex">
-                <div class="d-flex position-relative">
+    
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+    
+        </div>
+    </nav>
+    <section style="padding: 10%;">
+        <section id="intro">
+            <h1 class="text-center">Men's clothing</h1>
+            <!-- <p>Welcome to our webshop! We are a team of passionate individuals who believe in providing our customers
+                    with the best
+                    online shopping experience. We offer a wide range of high-quality products at competitive prices, and
+                    are constantly
+                    updating our inventory to bring you the latest and greatest products on the market.</p><br>
+                <p>
+                    We understand that shopping online can be a bit daunting, which is why we have made it our mission to
+                    make your
+                    experience as easy and enjoyable as possible. From browsing to checkout, we have streamlined the process
+                    to make it
+                    seamless and efficient.
+                </p><br>
+                <p>
+                    We pride ourselves on our excellent customer service, and are always here to help with any questions or
+                    concerns you may
+                    have. Whether you're a first-time shopper or a returning customer, we want to ensure that your
+                    experience with us is
+                    nothing short of outstanding.
+                </p><br>
+                <p>
+                    Thank you for choosing our webshop for your shopping needs. We hope you enjoy your shopping experience
+                    and find the
+                    perfect products for you.</p> -->
+            </article>
+        </section>
+    
+        <section id="main-section">
+    
+    
+            <article id="products" class="card-group border border-0">
+    
+            </article>
+        </section>
+        <br>
+        <section class="visually-hidden d-flex " id="basket">
+            <div class="d-flex align-items-center justify-content-evenly">
+                <div class="d-flex position-relative" id="carticon">
                     <a href="/checkout.html" style="padding: 0;">
                         <img width="60" src="./shopping-bag.png" alt="cart" class="d-flex justify-content-start">
                     </a>
@@ -46,61 +90,28 @@
                         class="navbar-brand position-absolute top-50 start-50 translate-middle text-wrap fs-6"
                         style="padding-top: 20px;"></div>
                 </div>
+                <h1 class="text-center d-flex">Your shopping bag</h1>
             </div>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-        </div>
-    </nav>
-
-    <section class="visually-hidden" id="basket">
-        <h1 class="text-center">Basket</h1>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Item</th>
-                    <th>Price</th>
-                    <th>Quantity</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="basketlist">
-            </tbody>
-        </table>
-        <table class="table">
-            <tbody width="100%" id="subtotal">
-                <th width="100%">subtotal</th>
-            </tbody>
-        </table>
+            <table class="table table-borderless table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Item</th>
+                        <th scope="col">Price</th>
+                        <th scope="col"></th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody id="basketlist">
+                </tbody>
+                <tfoot id="subtotal">
+                </tfoot>
+            </table>
+        </section>
+        <a type="button" class="btn btn-primary position-fixed bottom-0 end-0" href="/checkout.html"
+            id="checkoutbutton">Proceed to checkout</a>
     </section>
-    <h1 class="text-center">Men's Clothing</h1>
-    <!-- <section id="intro">
-        <article style="padding: 10%;">
-            <p>Welcome to our webshop! We are a team of passionate individuals who believe in providing our customers with the best
-            online shopping experience. We offer a wide range of high-quality products at competitive prices, and are constantly
-            updating our inventory to bring you the latest and greatest products on the market.</p><br>
-            <p>
-            We understand that shopping online can be a bit daunting, which is why we have made it our mission to make your
-            experience as easy and enjoyable as possible. From browsing to checkout, we have streamlined the process to make it
-            seamless and efficient.
-            </p><br>
-            <p>
-            We pride ourselves on our excellent customer service, and are always here to help with any questions or concerns you may
-            have. Whether you're a first-time shopper or a returning customer, we want to ensure that your experience with us is
-            nothing short of outstanding.
-            </p><br>
-            <p>
-            Thank you for choosing our webshop for your shopping needs. We hope you enjoy your shopping experience and find the
-            perfect products for you.</p>
-        </article>
-    </section> -->
-    <section id="main-section">
-        <article id="products" class="card-group" style=padding:10%>
-
-        </article>
     </section>
     <script src="app-category-mens.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
