@@ -183,7 +183,7 @@ function renderCartItems() {
         price = price.toFixed(0);
         basketlistEl.innerHTML +=
             `
-           <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 100px"></td>
+           <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
             <td>${item.title}</td>
             <td>${price} kr.</td>
            <td><a id='a1' role="button" class='btn btn-success' onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
