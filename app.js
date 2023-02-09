@@ -42,6 +42,7 @@ const subtotalEl = document.getElementById("subtotal");
 const totalItemsInCartEl = document.getElementById("totalitemsincart");
 const carticonEl = document.getElementById("carticon");
 const checkoutbuttonEl = document.getElementById("checkoutbutton");
+const modalEl = document.getElementById("modal");
 
 console.log(localStorage.getItem("USD"));
 getRate();
@@ -80,6 +81,8 @@ function renderJson(json1) {
         let productImage = products[i].image;
         let description = products[i].description;
         let category = products[i].category;
+        let rate = products[i].rating.rate;
+        let count = products[i].rating.count;
 
         let price = products[i].price * localStorage.getItem("USD");
         price = price.toFixed(0);
@@ -89,25 +92,53 @@ function renderJson(json1) {
 
         // if (category === "men's clothing") {
         productsEl.innerHTML += `
-            <div class="card-group border-white d-flex m-5" >
-            <div class='card border border-0' style="width: 18rem;">
-            <img class="class="card-img-top" src="${productImage}" max-height=775px>
-           <div class="card-img-overlay">
-           <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2" id='a1' width=50px; height=50px; style="background-color: rgba(41, 219, 160, 0.74);"  role="button" onclick='addToCart(${productId}); showBasket()'>
-           </div>
-           <div class="card-body d-flex flex-column mb-3 justify-content-end">
-           
-           <div class="p-2"><p class="card-text d-inline-block text-truncate" style="max-width: 200px;"><b>${productTitle}</b></p>
-           <p><b>${price} kr.</b></p></div>
-           </div>
-           </div>
+            <div class="card-group border-white d-flex flex-column m-5 justify-content-center" >
+            <div class='card border border-0 d-flex ' style="width: 18rem;">
+            <img class="class="card-img-top " src="${productImage}" max-height=775px>
+            <div class="card-img-overlay">
+            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2" id='a1' width=50px; height=50px; role="button" onclick='addToCart(${productId}); showBasket()'>
+            </div>
+            <div class="card-body d-flex flex-column  justify-content-end">
+            <div class="p-2 "><p class="card-text d-inline-block" style="max-width: 200px;"><b>${productTitle}</b></p>
+            <p><b>${price} kr.</b></p>
+            <div class="overflow-scroll card-text h-10" ></div>
+            </div>
+            </div>
+            <div class="d-flex flex-column card-img-overlay" style="position:absolute; padding-left:0%; right:70%; top:90%;">
+            <button style="padding-top:0%"; type="button" class="btn btn-link" data-bs-toggle="modal"
+             data-bs-target="#picturemodal${i}">info</button></div>
+            </div>
            <div class="card-footer border border-0" style="">
            </div>
            </div>`;
         // }
+
+modalEl.innerHTML +=
+        `
+        <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">${productTitle}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class= "card-img-top" src="${productImage}" width="100%">
+                        <p>${description}</p>
+                        <p>Rating: ${rate}, Count: ${count}<p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        `}
     }
     ;
-}
+
 
 //cart array
 let cart = JSON.parse(localStorage.getItem("CART")) || [];
