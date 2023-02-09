@@ -7,18 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Basket</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary ">
-    <div class="container-fluid d-flex justify-content-between">
-        <a class="navbar-brand" href="index.html">
-<img width="60" src="./oasis.png" alt=""> Online Oasis</a>        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+<div class="container" width="100%">
+    <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary">
+        <div class="container-fluid d-flex justify-content-between">
+            <a class="navbar-brand" href="index.html">
+                <img width="60" src="./oasis.png" alt=""> Online Oasis</a>
+            <!-- <div class="collapse navbar-collapse" id="navbarTogglerDemo02"> -->
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Categories
                     </a>
                     <ul class="dropdown-menu">
@@ -31,24 +33,15 @@
                     </ul>
                 </li>
             </ul>
-        </div>
-        <div class="d-flex">
-            <div class="d-flex position-relative">
-                <a href="/checkout.html" style="padding: 0;">
-                    <img width="60" src="./shopping-bag.png" alt="cart" class="d-flex justify-content-start">
-                </a>
-                <div id="totalitemsincart"
-                    class="navbar-brand position-absolute top-50 start-50 translate-middle text-wrap fs-6"
-                    style="padding-top: 20px;"></div>
-            </div>
-        </div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
-            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- </div> -->
 
-    </div>
-</nav>
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> -->
+        </div>
+    </nav>
+</div>
     <section style="padding: 10%;">
     <h1 id="h2">Please register to check out</h2>
     <form class="was-validated">
@@ -91,21 +84,36 @@
         </div>
     </form>
     
-    <h3 id="h3">Products in you basket</h3>
-    <table id="basketlist" class="table" style="max-width: 576px;">
-        <tr>
-            <th></th>
-            <th>Item</th>
-            <th>Price</th>
-            <th>Quantity</th>
-        </tr>
-    </table>
-<table class="table">
-    <tbody width="100%" id="subtotal">
-        <th width="100%">subtotal</th>
-    </tbody>
-</table>
-    <button id="sendButton">Send your order</button>
+    <section id="basket">
+        <div class="d-flex align-items-center justify-content-evenly">
+            <div class="d-flex position-relative" id="carticon">
+                <a href="/checkout.html" style="padding: 0;">
+                    <img width="60" src="./shopping-bag.png" alt="cart" class="d-flex justify-content-start">
+                </a>
+                <div id="totalitemsincart"
+                    class="navbar-brand position-absolute top-50 start-50 translate-middle text-wrap fs-6"
+                    style="padding-top: 20px;"></div>
+            </div>
+            <h1 class="text-center d-flex">Your shopping bag</h1>
+        </div>
+        <table class="table table-borderless" style="max-width: 100%;">
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Price</th>
+                    <th scope="col"></th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody id="basketlist">
+            </tbody>
+            <tfoot id="subtotal">
+            </tfoot>
+        </table>
+    </section>
+    <button type="button" class="btn btn-primary" id="sendButton">Send your order</button>
 
     <!-- <script src="app.js"></script> -->
     <script src="app-checkout.js"></script>

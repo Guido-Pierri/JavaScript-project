@@ -19,12 +19,12 @@ const fraktEl = document.getElementById("radio")
 const sendButtonEl = document.getElementById("sendButton");
 
 
-let productId = localStorage.getItem("id");
-let productTitle = localStorage.getItem("title");
-let productPrice = localStorage.getItem("price");
-console.log("id: ", productId);
-console.log("title: ", productTitle);
-console.log("price: ", productPrice);
+// let productId = localStorage.getItem("id");
+// let productTitle = localStorage.getItem("title");
+// let productPrice = localStorage.getItem("price");
+// console.log("id: ", productId);
+// console.log("title: ", productTitle);
+// console.log("price: ", productPrice);
 
 let cart = JSON.parse(localStorage.getItem("CART")) || [];
 updateCart();
@@ -33,6 +33,21 @@ console.log(cart);
 
 
 //functions
+
+getRate();
+function getRate() {
+    fetch('https://api.valuta.se/api/sek/rates/')
+        .then(res => res.json())
+        .then(data => render(data));
+
+    function render(rates) {
+        console.log(rates);
+        let arr = rates;
+        console.log("arr", arr);
+        console.log("arr", arr[4].value);
+        localStorage.setItem("USD", (arr[4].value) / 100);
+    }
+}
 
 function addToCart(id) {
     let productsLocal = localStorage.getItem("products");
@@ -68,15 +83,13 @@ function updateCart() {
 function renderSubTotal() {
     let totalPrice = 0, totalItems = 0;
     cart.forEach(item => {
-        totalPrice += item.price * item.numberOfUnits;
+        totalPrice += item.price * item.numberOfUnits * localStorage.getItem("USD");
         totalItems += item.numberOfUnits;
     });
     subtotalEl.innerHTML =
         `
-     
-    <tr>
-     <td><b><Em>Subtotal(${totalItems} items): $${totalPrice.toFixed(2)}</em></b></td>
-    </tr>     
+    <td>
+     <b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></td>
     `
     totalItemsInCartEl.innerHTML = totalItems;
 };
@@ -85,13 +98,15 @@ function renderSubTotal() {
 function renderCartItems() {
     basketEl.innerHTML = "";
     cart.forEach((item) => {
+        let price = item.price * localStorage.getItem("USD");
+        price = price.toFixed(0);
         basketEl.innerHTML +=
             `
            <td><img src="${item.image}" class="img-fluid" alt="${item.title}" style="max-width: 100px"; onclick="removeItemFromCart(${item.id})"></td>
             <td>${item.title}</td>
-            <td>${item.price}</td>
-           <td><a id='a1' class='btn btn-success description-btn' onclick="changeNumberOfUnits('minus', ${item.id})">- </a></td>
-           <td>${item.numberOfUnits}</td><td><a id='a1' class='btn btn-success description-btn' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+            <td>${price}</td>
+           <td><a id='a1' class='btn btn-success rounded-circle' onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
+           <td>${item.numberOfUnits}</td><td><a id='a1' class='btn btn-success rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
     });
 };

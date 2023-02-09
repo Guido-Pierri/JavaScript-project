@@ -93,7 +93,7 @@ function renderJson(json1) {
             <div class='card border border-0' style="width: 18rem;">
             <img class="class="card-img-top" src="${productImage}" max-height=775px>
            <div class="card-img-overlay">
-           <img src="add-to-cart.png" class="float-end rounded-circle" id='a1' width=50px; height=50px; style="background-color: rgba(41, 219, 160, 0.74);"  role="button" onclick='addToCart(${productId}); showBasket()'>
+           <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2" id='a1' width=50px; height=50px; style="background-color: rgba(41, 219, 160, 0.74);"  role="button" onclick='addToCart(${productId}); showBasket()'>
            </div>
            <div class="card-body d-flex flex-column mb-3 justify-content-end">
            
@@ -186,9 +186,9 @@ function renderCartItems() {
            <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
             <td>${item.title}</td>
             <td>${price} kr.</td>
-           <td><a id='a1' role="button" class='btn btn-success' onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
+           <td><a id='a1' role="button" class="btn btn-success rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
            <td>${item.numberOfUnits}</td><td><a id='a1' role="button" 
-           class='btn btn-success' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+           class='btn btn-success rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
     });
 }
