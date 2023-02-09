@@ -218,7 +218,7 @@ sendButtonEl.addEventListener('click', function sendOrder() {
     // cartString = cartString.replaceAll('.', '');
     // console.log("cartString", cartString);
     if (!username || !frakt || !email || !adress) {
-        alert("Du måste fylla i dina uppgifter för att skapa en order")
+        alert("Please enter the required fields to place the order")
         return
     }
     //SÄTT SAMANANVÄNDARENS VÄRDEN TILL JSON-OBJEKT
