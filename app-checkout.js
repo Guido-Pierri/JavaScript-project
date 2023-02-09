@@ -9,6 +9,7 @@ const adress1El = document.getElementById("adress1");
 const adress2El = document.getElementById("adress2");
 const adress3El = document.getElementById("adress3");
 const adress4El = document.getElementById("adress4");
+const bodyEl = document.getElementById("body");
 
 const h1El = document.getElementById("h1");
 const basketEl = document.getElementById("basketlist");
@@ -31,7 +32,11 @@ updateCart();
 
 console.log(cart);
 
-
+if (cart.length <1) {
+    bodyEl.innerHTML =
+`<h1 class="text-center">Your basket is empty</h1>
+<a href="/index.html"><button class="btn btn-success">Return to the webbshop</button></a>`
+}
 //functions
 
 getRate();

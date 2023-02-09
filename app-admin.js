@@ -99,7 +99,7 @@ function saveId(orderId) {
     localStorage.setItem("ID", orderId);
 }
 function deleteOrder(orderId) {
-    // alert("deleteOrder");
+    alert("deleteOrder");
 
     let url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId;
     console.log("url:", url);
