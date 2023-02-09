@@ -44,6 +44,7 @@ const carticonEl = document.getElementById("carticon");
 const checkoutbuttonEl = document.getElementById("checkoutbutton");
 const modalEl = document.getElementById("modal");
 
+
 console.log(localStorage.getItem("USD"));
 getRate();
 function getRate() {
