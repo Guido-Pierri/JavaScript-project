@@ -201,8 +201,9 @@ function renderSubTotal() {
     });
     subtotalEl.innerHTML =
         `
-    <td>
-     <b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></td>
+    
+        <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-success ml-3">Proceed to checkout</button></a>
+     <p><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
     `
     totalItemsInCartEl.innerHTML = totalItems;
 };
@@ -271,11 +272,9 @@ function showCartIcon() {
 
     if (cart.length < 1) {
         carticonEl.className = "visually-hidden";
-        checkoutbuttonEl.className = "visually-hidden";
 
     } else {
         carticonEl.className = "visible d-flex position-relative";
-        checkoutbuttonEl.className = "btn btn-primary position-fixed bottom-0 end-50 visible";
 
     }
 }
