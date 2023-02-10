@@ -275,7 +275,7 @@ function showCartIcon() {
 
     } else {
         carticonEl.className = "visible d-flex position-relative";
-        checkoutbuttonEl.className = "btn btn-primary position-fixed bottom-0 end-0 visible";
+        checkoutbuttonEl.className = "btn btn-primary position-fixed bottom-50 end-0 visible";
 
     }
 }
