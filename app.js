@@ -97,25 +97,25 @@ function renderJson(json1) {
             <div class='card border border-0 d-flex ' style="width: 18rem;">
             <img class="class="card-img-top " src="${productImage}" max-height=775px>
             <div class="card-img-overlay">
-            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2" id='a1' width=50px; height=50px; role="button" onclick='addToCart(${productId}); showBasket()'>
+            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' style="--bs-bg-opacity: .5; width=50px; height=50px;" role="button" onclick='addToCart(${productId}); showBasket()'>
             </div>
             <div class="card-body d-flex flex-column  justify-content-end">
-            <div class="p-2 "><p class="card-text d-inline-block" style="max-width: 200px;"><b>${productTitle}</b></p>
+            <div class="p-2"><p class="card-text d-inline-block" style="max-width: 200px;"><b>${productTitle}</b></p>
             <p><b>${price} kr.</b></p>
             <div class="overflow-scroll card-text h-10" ></div>
             </div>
             </div>
-            <div class="d-flex flex-column card-img-overlay" style="position:absolute; padding-left:0%; right:70%; top:90%;">
-            <button style="padding-top:0%"; type="button" class="btn btn-link" data-bs-toggle="modal"
-             data-bs-target="#picturemodal${i}">info</button></div>
+            <div class="d-flex flex-column card-img-overlay justify-sef-center" style="position:absolute; padding-left:0%; top:90%;">
+            <button type="button" class="btn btn-light w-100 rounded-0" data-bs-toggle="modal"
+             data-bs-target="#picturemodal${i}">Read more about this product</button></div>
             </div>
            <div class="card-footer border border-0" style="">
            </div>
            </div>`;
         // }
 
-modalEl.innerHTML +=
-        `
+        modalEl.innerHTML +=
+            `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -130,15 +130,15 @@ modalEl.innerHTML +=
                         
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
 
                     </div>
                 </div>
             </div>
         </div>
         `}
-    }
-    ;
+}
+;
 
 
 //cart array
@@ -202,9 +202,10 @@ function renderSubTotal() {
     subtotalEl.innerHTML =
         `
     
-        <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-success p-1 h-100 rounded-0"><b><em>Proceed to checkout</em></b></button></a>
-     <div  class="d-flex align-self-center"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
-    </div>`
+        <div  class="d-flex align-self-flex-end"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
+        </div>
+        <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-secondary p-1 h-100 w-100rounded-0"><b><em>Proceed to checkout</em></b></button></a>
+        `
     totalItemsInCartEl.innerHTML = totalItems;
 };
 
@@ -218,10 +219,10 @@ function renderCartItems() {
             `
            <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
             <td>${item.title}</td>
-            <td>${price} kr.</td>
-           <td><a id='a1' role="button" class="btn btn-success rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
-           <td>${item.numberOfUnits}</td><td><a id='a1' role="button" 
-           class='btn btn-success rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+            <td><b>${price} kr.</b></td>
+           <td><a id='a1' role="button" class="btn btn-light rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
+           <td><b>${item.numberOfUnits}</b></td><td><a id='a1' role="button" 
+           class='btn btn-light rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
     });
 }
