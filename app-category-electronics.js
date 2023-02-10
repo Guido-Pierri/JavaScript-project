@@ -42,6 +42,7 @@ const subtotalEl = document.getElementById("subtotal");
 const totalItemsInCartEl = document.getElementById("totalitemsincart");
 const carticonEl = document.getElementById("carticon");
 const checkoutbuttonEl = document.getElementById("checkoutbutton");
+const modalEl = document.getElementById("modal");
 
 console.log(localStorage.getItem("USD"));
 getRate();
@@ -76,91 +77,120 @@ function renderJson(json1) {
 
     productsEl.innerHTML = "";
     for (let i = 0; i < products.length; i++) {
-        let productTitle = products[i].title;
-        let productImage = products[i].image;
-        let description = products[i].description;
-        let category = products[i].category;
+            let productTitle = products[i].title;
+            let productImage = products[i].image;
+            let description = products[i].description;
+            let category = products[i].category;
 
-        let price = products[i].price * localStorage.getItem("USD");
-        price = price.toFixed(0);
-        let productId = products[i].id;
-        // console.log("json:",jsonobject);
-        // console.log("values: ", values);
+            let price = products[i].price * localStorage.getItem("USD");
+            price = price.toFixed(0);
+            let productId = products[i].id;
+            let rate = products[i].rating.rate;
+            let count = products[i].rating.count;
+            // console.log("json:",jsonobject);
+            // console.log("values: ", values);
 
-        if (category === "electronics") {
-        productsEl.innerHTML += `
-            <div class="card-group border-white d-flex m-5" >
-            <div class='card border border-0' style="width: 18rem;">
-            <img class="class="card-img-top" src="${productImage}" max-height=775px>
-           <div class="card-img-overlay">
-           <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2" id='a1' width=50px; height=50px; style="background-color: rgba(41, 219, 160, 0.74);"  role="button" onclick='addToCart(${productId}); showBasket()'>
-           </div>
-           <div class="card-body d-flex flex-column mb-3 justify-content-end">
-           
-           <div class="p-2"><p class="card-text d-inline-block text-truncate" style="max-width: 200px;"><b>${productTitle}</b></p>
-           <p><b>${price} kr.</b></p></div>
-           </div>
-           </div>
+            if (category === "electronics") {
+                productsEl.innerHTML += `
+            <div class="card-group border-white d-flex flex-column m-5 justify-content-center" >
+            <div class='card border border-0 d-flex ' style="width: 18rem;">
+            <img class="class="card-img-top " src="${productImage}" max-height=775px>
+            <div class="card-img-overlay">
+            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' style="--bs-bg-opacity: .5; width=50px; height=50px;" role="button" onclick='addToCart(${productId}); showBasket()'>
+            </div>
+            <div class="card-body d-flex flex-column  justify-content-end">
+            <div class="p-2"><p class="card-text d-inline-block" style="max-width: 200px;"><b>${productTitle}</b></p>
+            <p><b>${price} kr.</b></p>
+            <div class="overflow-scroll card-text h-10" ></div>
+            </div>
+            <div class="d-flex flex-column card-img-overlay justify-sef-center" style=" padding-left:0%; top:95%;">
+            <button type="button" class="btn btn-light w-100 rounded-0" data-bs-toggle="modal"
+             data-bs-target="#picturemodal${i}">Read more about this product</button></div>
+            </div>
+            </div>
            <div class="card-footer border border-0" style="">
            </div>
            </div>`;
+                modalEl.innerHTML +=
+                    `
+        <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">${productTitle}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class= "card-img-top" src="${productImage}" width="100%">
+                        <p>${description}</p>
+                        <p>Rating: ${rate}, Count: ${count}<p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        `
+            }
         }
+        ;
     }
-    ;
-}
 
-//cart array
-let cart = JSON.parse(localStorage.getItem("CART")) || [];
-console.log("cart", cart);
-console.log("cart.length", cart.length);
+    //cart array
+    let cart = JSON.parse(localStorage.getItem("CART")) || [];
+    console.log("cart", cart);
+    console.log("cart.length", cart.length);
 
-if (cart.length < 1) {
-    basketEl.className = "invisible";
+    if (cart.length < 1) {
+        basketEl.className = "invisible";
 
-} else {
-    basketEl.className = "";
+    } else {
+        basketEl.className = "";
 
-}
-updateCart();
-showCartIcon();
-
-//functions
-
-function addToCart(id) {
-
-    let productsLocal = localStorage.getItem("products");
-    let products = JSON.parse(productsLocal);
-    console.log("products: ", products);
-    console.log(id);
-    basketEl.scrollIntoView();
-
-    //check if product already exists in cart
-    if (cart.some((item) => item.id === id)) {
-        alert("Product already in cart")
-    }
-    else {
-        const item = products.find((product) => product.id === id)
-        // console.log(item);
-        cart.push({
-            ...item,
-            numberOfUnits: 1,
-        });
-        console.log(cart);
     }
     updateCart();
-}
-//update cart
-function updateCart() {
-    renderCartItems();
-    renderSubTotal();
     showCartIcon();
 
+    //functions
 
-    //sace cart to local storage
-    localStorage.setItem("CART", JSON.stringify(cart));
-}
+    function addToCart(id) {
 
-// calculate and render subtotal
+        let productsLocal = localStorage.getItem("products");
+        let products = JSON.parse(productsLocal);
+        console.log("products: ", products);
+        console.log(id);
+        basketEl.scrollIntoView();
+
+        //check if product already exists in cart
+        if (cart.some((item) => item.id === id)) {
+            alert("Product already in cart")
+        }
+        else {
+            const item = products.find((product) => product.id === id)
+            // console.log(item);
+            cart.push({
+                ...item,
+                numberOfUnits: 1,
+            });
+            console.log(cart);
+        }
+        updateCart();
+    }
+    //update cart
+    function updateCart() {
+        renderCartItems();
+        renderSubTotal();
+        showCartIcon();
+
+
+        //sace cart to local storage
+        localStorage.setItem("CART", JSON.stringify(cart));
+    }
+
+    // calculate and render subtotal
 function renderSubTotal() {
     let totalPrice = 0, totalItems = 0;
     cart.forEach(item => {
@@ -169,13 +199,14 @@ function renderSubTotal() {
     });
     subtotalEl.innerHTML =
         `
-    <td>
-     <b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></td>
-    `
+    
+        <div  class="d-flex align-self-flex-end"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
+        </div>
+        <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-secondary p-1 h-100 w-100 rounded-0"><b><em>Proceed to checkout</em></b></button></a>
+        `
     totalItemsInCartEl.innerHTML = totalItems;
 };
-
-// render cart items
+    // render cart items
 function renderCartItems() {
     basketlistEl.innerHTML = "";
     cart.forEach((item) => {
@@ -185,65 +216,65 @@ function renderCartItems() {
             `
            <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
             <td>${item.title}</td>
-            <td>${price} kr.</td>
-           <td><a id='a1' role="button" class="btn btn-success rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
-           <td>${item.numberOfUnits}</td><td><a id='a1' role="button" 
-           class='btn btn-success rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+            <td><b>${price} kr.</b></td>
+           <td><a id='a1' role="button" class="btn btn-light rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
+           <td><b>${item.numberOfUnits}</b></td><td><a id='a1' role="button" 
+           class='btn btn-light rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
     });
 }
-//change number of units for an item
+    //change number of units for an item
 
-function changeNumberOfUnits(action, id) {
-    cart = cart.map((item) => {
-        console.log(item.numberOfUnits);
-        let numberOfUnits = item.numberOfUnits;
-        console.log(numberOfUnits);
-        console.log("item.id: ", item.id);
-        console.log("id: ", id);
-        if (item.id === id) {
-            console.log("action: ", action);
-            if (action === "minus" && numberOfUnits > 1) {
-                numberOfUnits--;
-                console.log("numberOfUnits: ", numberOfUnits);
-            } else if (action === "plus") {
-                numberOfUnits++;
+    function changeNumberOfUnits(action, id) {
+        cart = cart.map((item) => {
+            console.log(item.numberOfUnits);
+            let numberOfUnits = item.numberOfUnits;
+            console.log(numberOfUnits);
+            console.log("item.id: ", item.id);
+            console.log("id: ", id);
+            if (item.id === id) {
+                console.log("action: ", action);
+                if (action === "minus" && numberOfUnits > 1) {
+                    numberOfUnits--;
+                    console.log("numberOfUnits: ", numberOfUnits);
+                } else if (action === "plus") {
+                    numberOfUnits++;
+                }
             }
-        }
-        console.log("item", item);
-        return {
-            ...item,
-            numberOfUnits,
-        }
-    });
+            console.log("item", item);
+            return {
+                ...item,
+                numberOfUnits,
+            }
+        });
 
-    updateCart();
-}
-// remove item from cart
-function removeItemFromCart(id) {
-    console.log("removeItemFromCart");
-    cart = cart.filter((item) => item.id !== id);
-    if (cart.length === 0) {
-        basketEl.className = "invisible"
+        updateCart();
     }
+    // remove item from cart
+    function removeItemFromCart(id) {
+        console.log("removeItemFromCart");
+        cart = cart.filter((item) => item.id !== id);
+        if (cart.length === 0) {
+            basketEl.className = "invisible"
+        }
 
-    updateCart();
-    showCartIcon();
-}
-function showBasket() {
-    console.log("showBasket");
-    basketEl.className = "";
-
-}
-function showCartIcon() {
-
-    if (cart.length < 1) {
-        carticonEl.className = "visually-hidden";
-        checkoutbuttonEl.className = "visually-hidden";
-
-    } else {
-        carticonEl.className = "visible d-flex position-relative";
-        checkoutbuttonEl.className = "btn btn-primary position-fixed bottom-0 end-0 visible";
+        updateCart();
+        showCartIcon();
+    }
+    function showBasket() {
+        console.log("showBasket");
+        basketEl.className = "";
 
     }
-}
+    function showCartIcon() {
+
+        if (cart.length < 1) {
+            carticonEl.className = "visually-hidden";
+            // checkoutbuttonEl.className = "visually-hidden";
+
+        } else {
+            carticonEl.className = "visible d-flex position-relative";
+            // checkoutbuttonEl.className = "btn btn-primary position-fixed bottom-0 end-0 visible";
+
+        }
+    }

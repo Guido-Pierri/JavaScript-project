@@ -204,7 +204,7 @@ function renderSubTotal() {
     
         <div  class="d-flex align-self-flex-end"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
         </div>
-        <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-secondary p-1 h-100 w-100rounded-0"><b><em>Proceed to checkout</em></b></button></a>
+        <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-secondary p-1 h-100 w-100 rounded-0"><b><em>Proceed to checkout</em></b></button></a>
         `
     totalItemsInCartEl.innerHTML = totalItems;
 };
