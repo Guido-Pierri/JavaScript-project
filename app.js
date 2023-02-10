@@ -104,10 +104,10 @@ function renderJson(json1) {
             <p><b>${price} kr.</b></p>
             <div class="overflow-scroll card-text h-10" ></div>
             </div>
-            </div>
-            <div class="d-flex flex-column card-img-overlay justify-sef-center" style="position:absolute; padding-left:0%; top:90%;">
+            <div class="d-flex flex-column card-img-overlay justify-sef-center" style=" padding-left:0%; top:95%;">
             <button type="button" class="btn btn-light w-100 rounded-0" data-bs-toggle="modal"
              data-bs-target="#picturemodal${i}">Read more about this product</button></div>
+            </div>
             </div>
            <div class="card-footer border border-0" style="">
            </div>
