@@ -12,6 +12,9 @@ html,
 body {
     overflow-x: hidden;
 }
+/* .card {
+    width: 30%;
+} */
 .rounded-circle {
     display: flex;
     height: 20px;
@@ -41,4 +44,8 @@ ul {
 
 }
 
-@media (min-width: 576px) {}
+@media (min-width: 576px) {
+    .card{
+        width: 18rem;
+    }
+}
