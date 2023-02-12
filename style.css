@@ -1,4 +1,3 @@
-
 /*
 .description-btn {
     width: 100%;
@@ -8,9 +7,13 @@
 .bg-dark-subtle {
     --bs-bg-opacity: .5;
 }
+
 html,
 body {
     overflow-x: hidden;
+}
+.admin{
+        overflow-x: visible;
 }
 /* .card {
     width: 30%;
@@ -32,8 +35,8 @@ body {
 }
 
 .btn-success {
-        background-color: #29dba0bd;
-        color: rgb(19, 19, 19);
+    background-color: #29dba0bd;
+    color: rgb(19, 19, 19);
 }
 
 /* #a1{
@@ -45,7 +48,8 @@ ul {
 }
 
 @media (min-width: 576px) {
-    .card{
+    .card {
         width: 18rem;
+
     }
 }
