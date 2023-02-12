@@ -1,7 +1,7 @@
 "use strict";
 fetch("https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders")
     .then(res => res.json())
-    .then(json => renderJson(json))
+    .then(json => renderJson5(json))
 
 
 const h1El = document.getElementById("h1");
@@ -20,7 +20,7 @@ const changeEmailEl = document.getElementById("changeEmail");
 
 const modifybuttonEL = document.getElementById("modify");
 
-function renderJson(json) {
+function renderJson5(json) {
     let orders = json;
     console.log("orders: ", orders);
     console.log("order.documents: ", orders.documents);
@@ -44,14 +44,15 @@ function renderJson(json) {
         let orderShipping = ordersArray[i].fields.shippingMethod.stringValue;
         console.log("orderShipping: ", orderShipping);
 
-        let orderPrice = JSON.parse(ordersArray[i].fields.orderTotalPrice.stringValue);
+        let orderPrice = (ordersArray[i].fields.orderTotalPrice.stringValue);
         console.log("orderPrice; ", orderPrice);
-        orderPrice = orderPrice.orderTotalPrice;
-        console.log("orderPrice; ", orderPrice);
+        // orderPrice = orderPrice.orderTotalPrice;
+        // console.log("orderPrice; ", orderPrice);
         let orderProducts = (ordersArray[i].fields.products.stringValue);
         let tableContent = orderProducts;
 
-        // //create unordered list of products
+        //create unordered list of products
+
         // let orderProducts = JSON.parse(ordersArray[i].fields.products.stringValue);
         // console.log("orderProducts", orderProducts);
         // var tableContent = '<ul class="list-group list-group-flush">';
@@ -69,7 +70,7 @@ function renderJson(json) {
         //     // console.log("order", order);
 
         // }
-        //     console.log("order", order);
+        // console.log("order", order);
         let orderAdress = ordersArray[i].fields.adress.stringValue;
         let customerName = ordersArray[i].fields.userName.stringValue;
         let email = ordersArray[i].fields.email.stringValue;
@@ -85,7 +86,7 @@ function renderJson(json) {
             <td>${email}</td>
             <td>${orderShipping}</td>
             <td><button onclick='deleteOrder("${orderId}")'>Delete order</button>
-            <td><button onclick='showForm("${orderId}"), saveId("${orderId}")' >Modify order</button>
+            <td><button onclick='showForm("${orderId}"), saveId("${orderId}")'>Modify order</button>
 
             <br>
             `
@@ -120,48 +121,63 @@ function reload() {
     console.log("reload() körs");
     location.reload();
 }
-function finnishOrder() {
-    location.assign("http://127.0.0.1:5500/order.html")
-}
 
 function showForm(data) {
     console.log("show form");
-    formEl.removeAttribute("class")
-    changeidEl.scrollIntoView()
+    formEl.removeAttribute("class");
+    changeCustomerEl.scrollIntoView();
     let orderId1 = data;
     console.log("orderId1:", orderId1);
+    let url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId1;
+    fetch(url)
+        .then(res => res.json())
+        .then(json => assingValues(json));
 
+    function assingValues(json) {
+        console.log(json);
+        changeCustomerEl.value = json.fields.userName.stringValue;
+        changeAdressEl.value = json.fields.adress.stringValue;
+        changeEmailEl.value = json.fields.email.stringValue;
+        changeproductsEl.value = json.fields.products.stringValue;
+        changePriceEl.value = json.fields.orderTotalPrice.stringValue;
+        console.log(json.fields.orderTotalPrice.stringValue);
+        changeDeliveryEl.value = json.fields.shippingMethod.stringValue;
+        console.log(json.fields.shippingMethod.stringValue);
+    }
 
     function modifyOrder() {
-       let orderId = localStorage.getItem("ID");
+        let orderId = localStorage.getItem("ID");
         console.log("orderID:", orderId);
-        alert("modifyOrder ");
         let adress = changeAdressEl.value;
         let price = changePriceEl.value;
         let frakt = changeDeliveryEl.value;
         let email = changeEmailEl.value;
-        let idNumber = changeidEl.value;
-        let order = `[{${changeproductsEl.value}}]`;
-        
-        let userName = changeCustomerEl.value;
 
+        let order = changeproductsEl.value;
+        console.log("order", order);
+        let userName = changeCustomerEl.value;
         let url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId;
         console.log("url:", url);
         fetch(url)
-            .then(res => res.json())
-            .then(json => renderJson(json));
+        .then(res => res.json())
+        .then(json => renderJson(json));
+        // alert()
 
         function renderJson(json) {
             let data = json;
             console.log("data: ", data);
+
             console.log("data.fields: ", data.fields);
+            // alert(orderId)
+            // alert(adress)
+            // alert(price)
+            // alert(frakt)
+            // alert(email)
+
             let date = data.fields.date.timestampValue;
 
 
-            if (!userName || !frakt || !price || !adress || !email || !idNumber) {
-                alert("You must fill in all parameters to modify an order")
-                return
-            }
+            
             const body = JSON.stringify({
                 "fields": {
                     "userName": {
@@ -191,9 +207,11 @@ function showForm(data) {
 
 
             });
+            // alert(orderId)
 
-            url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId;
-            console.log("url:", url);
+        //    let url = "https://firestore.googleapis.com/v1/projects/online-oasis-orders/databases/(default)/documents/orders/" + orderId;
+            // alert("url:", url);
+            
             fetch(url, {
                 method: 'PATCH',
                 headers: {
@@ -204,9 +222,9 @@ function showForm(data) {
                 .then(res => res.json())
                 .then(data => console.log(data));
         }
-        // setTimeout(reload,2000)
+        setTimeout(reload,2000)
     }
-    modifybuttonEL.addEventListener('click', modifyOrder )
+    modifybuttonEL.addEventListener('click', modifyOrder)
 }
 
 

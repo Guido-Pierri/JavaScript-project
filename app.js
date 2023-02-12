@@ -1,9 +1,9 @@
 /**
      KravFör godkänt betyg (G)
  
-     * 1.Alla produkter från det öppna API:et visas på webbplatsen med all data omvarje produkt. 
+     * 1.Alla produkter från det öppna API:et visas på webbplatsen med all data om varje produkt. 
  
-     * 2.Det går att beställa produkter(genom att klicka på “köp”-knapp)och användaren ska då behöva skicka 
+     * 2.Det går att beställa produkter(genom att klicka på “köp”-knapp)och användaren ska då behövaskicka 
         med namn, e-post, adress samt välja fraktvillkor(det ska inte gå att skicka beställningar utan att 
         all data har angetts. Produktens id skickas med automatiskt).Beställningar skickas med API till en 
         egen databas i Google Firebase där de lagras.
@@ -33,158 +33,248 @@
     */
 
 "use strict";
-const introEl = document.getElementById("intro")
-const sectionEl = document.getElementById("main-section");
+
+const productsEl = document.getElementById("products");
 const menEl = document.getElementById("men");
-const womenEl = document.getElementById("women");
-const electronicsEl = document.getElementById("electronics");
-const jeweleryEl = document.getElementById("jewelery");
-fetch('https://fakestoreapi.com/products')
-    .then(res => res.json())
-    .then(json1 => console.log(json1))
+const basketlistEl = document.getElementById("basketlist");
+const basketEl = document.getElementById("basket");
+const subtotalEl = document.getElementById("subtotal");
+const totalItemsInCartEl = document.getElementById("totalitemsincart");
+const carticonEl = document.getElementById("carticon");
+const checkoutbuttonEl = document.getElementById("checkoutbutton");
+const modalEl = document.getElementById("modal");
+
+
+console.log(localStorage.getItem("USD"));
+getRate();
+function getRate() {
+    fetch('https://api.valuta.se/api/sek/rates/')
+        .then(res => res.json())
+        .then(data => render(data));
+
+    function render(rates) {
+        console.log(rates);
+        let arr = rates;
+        console.log("arr", arr);
+        console.log("arr", arr[4].value);
+        localStorage.setItem("USD", (arr[4].value) / 100);
+    }
+}
 
 fetch('https://fakestoreapi.com/products')
     .then(res => res.json())
-    .then(json => renderJson(json))
-function renderJson(json) {
-    let products = json;
+    .then(json1 => renderJson(json1))
+    .catch(error => console.log(error));
+
+function renderJson(json1) {
+    let products = json1;
     console.log(products);
-    // menEl.addEventListener("click", function showMensClothing() {
-    //     introEl.innerHTML = "";
-    //     sectionEl.innerHTML = "";
-    //     for (let i = 0; i < products.length; i++) {
-    //         let productTitle = products[i].title;
-    //         let productImage = products[i].image;
-    //         let description = products[i].description;
-    //         let category = products[i].category;
-    //         let price = products[i].price;
-    //         let productId = products[i].id;
-    //         let values = [productId, productTitle, price];
-    //         console.log("values: ", values);
 
-    //         console.log("productId: ",productId);
-    //         const pEl = document.getElementById("p1");
-    //         if (category === "men's clothing") {
-    //             sectionEl.innerHTML += `<article class='card'> 
-    //                 <div class='card-body'> 
-    //                 <h5 class="card-title">${productTitle}</h5>
-    //                  <figure class='figure card'> 
-    //                 <img class="figure-img img-fluid rounded" width=100% src="${productImage}"> 
-    //                 <p id='p1' class='card-text description-text'>
-    //                 ${description}
-    //                 <br>
-    //                 </p>
-    //                 <a id='a1' class='btn btn-success description-btn' onclick='getId("${productId}"); getTitle("${productTitle}"); getPrice("${price}")' href="basket.html"><b>Buy this product<br>
-    //                 ${price}</b></a>
-    //                  </div>
-    //             </article>`;
-    //         }
-    //     }
-    // });
-    womenEl.addEventListener("click", function showWomensClothing() {
-        introEl.innerHTML = "";
-        sectionEl.innerHTML = "";
-        for (let i = 0; i < products.length; i++) {
-            
-            let productTitle = products[i].title;
-            let productImage = products[i].image;
-            let description = products[i].description;
-            let category = products[i].category;
-            let price = products[i].price;
-            
-            if (category === "women's clothing") {
-                sectionEl.innerHTML += `<article class='card'> 
-                    <div class='card-body'> 
-                    <h5 class="card-title">${productTitle}</h5>
-                     <figure class='figure card'> 
-                    <img class="figure-img img-fluid rounded" width=100% src="${productImage}"> 
-                    <p id='p1' class='card-text description-text'>
-                    ${description}
-                    <br>
-                    </p>
-                    <a id='a1' class='btn btn-success description-btn' onclick='alerter(${price})'><b>Buy this product<br>
-                    ${price}</b></a>
-                     </div>
-                </article>`;
-            }
-        }
-    });
-    jeweleryEl.addEventListener("click", function showJewelery() {
-        introEl.innerHTML = "";
-        sectionEl.innerHTML = "";
-        for (let i = 0; i < products.length; i++) {
-            
-            let productTitle = products[i].title;
-            let productImage = products[i].image;
-            let description = products[i].description;
-            let category = products[i].category;
-            let price = products[i].price;
+    //fetch currency exchane
 
-            if (category === "jewelery") {
-                sectionEl.innerHTML += `<article class='card'> 
-                    <div class='card-body'> 
-                    <h5 class="card-title">${productTitle}</h5>
-                     <figure class='figure card'> 
-                    <img class="figure-img img-fluid rounded" width=100% src="${productImage}"> 
-                    <p id='p1' class='card-text description-text'>
-                    ${description}
-                    <br>
-                    </p>
-                    <a id='a1' class='btn btn-success description-btn' onclick='alerter(${price})'><b>Buy this product<br>
-                    ${price}</b></a>
-                     </div>
-                </article>`;
-                
-            }
-        }
+
+
+    localStorage.setItem('products', JSON.stringify(products));
+
+    productsEl.innerHTML = "";
+    for (let i = 0; i < products.length; i++) {
+        let productTitle = products[i].title;
+        let productImage = products[i].image;
+        let description = products[i].description;
+        let category = products[i].category;
+        let rate = products[i].rating.rate;
+        let count = products[i].rating.count;
+
+        let price = products[i].price * localStorage.getItem("USD");
+        price = price.toFixed(0);
+        let productId = products[i].id;
+        // console.log("json:",jsonobject);
+        // console.log("values: ", values);
+
+        // if (category === "men's clothing") {
+        productsEl.innerHTML += `
+            <div class="card-group border-white flex-column m-5 justify-content-center" style="align-items: flex-start;" >
+            <div class='card border-0'>
+            <img class="card-img-top img-fluid" src="${productImage}">
+            <div class="card-img-overlay">
+            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" onclick='addToCart(${productId}); showBasket()'>
+            </div>
+            <div class="card-body d-flex flex-column justify-content-end">
+            <div class="p-2"><p class="card-text"><b>${productTitle}</b></p>
+            <p><b>${price} kr.</b></p>
+            </div>
+            <div class="d-flex flex-column card-img-overlay justify-sef-center" style=" padding-left:0%; top:95%;">
+            <button type="button" class="btn btn-light w-100 rounded-0" data-bs-toggle="modal"
+             data-bs-target="#picturemodal${i}">Read more about this product</button></div>
+            </div>
+            </div>
+           <div class="card-footer border border-0" style="">
+           </div>
+           </div>`;
+        // }
+
+        modalEl.innerHTML +=
+            `
+        <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">${productTitle}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class= "card-img-top" src="${productImage}" width="100%">
+                        <p>${description}</p>
+                        <p>Rating: ${rate}, Count: ${count}<p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        `}
+}
+;
+
+
+//cart array
+let cart = JSON.parse(localStorage.getItem("CART")) || [];
+console.log("cart", cart);
+console.log("cart.length", cart.length);
+
+if (cart.length < 1) {
+    basketEl.className = "invisible";
+
+} else {
+    basketEl.className = "";
+
+}
+updateCart();
+showCartIcon();
+
+//functions
+
+function addToCart(id) {
+
+    let productsLocal = localStorage.getItem("products");
+    let products = JSON.parse(productsLocal);
+    console.log("products: ", products);
+    console.log(id);
+    basketEl.scrollIntoView();
+
+    //check if product already exists in cart
+    if (cart.some((item) => item.id === id)) {
+        alert("Product already in cart")
+    }
+    else {
+        const item = products.find((product) => product.id === id)
+        // console.log(item);
+        cart.push({
+            ...item,
+            numberOfUnits: 1,
+        });
+        console.log(cart);
+    }
+    updateCart();
+}
+//update cart
+function updateCart() {
+    renderCartItems();
+    renderSubTotal();
+    showCartIcon();
+
+
+    //sace cart to local storage
+    localStorage.setItem("CART", JSON.stringify(cart));
+}
+
+// calculate and render subtotal
+function renderSubTotal() {
+    let totalPrice = 0, totalItems = 0;
+    cart.forEach(item => {
+        totalPrice += item.price * item.numberOfUnits * localStorage.getItem("USD");
+        totalItems += item.numberOfUnits;
     });
+    subtotalEl.innerHTML =
+        `
     
+        <div  class="d-flex align-self-flex-end"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
+        </div>
+        <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-secondary p-1 h-100 w-100 rounded-0"><b><em>Proceed to checkout</em></b></button></a>
+        `
+    totalItemsInCartEl.innerHTML = totalItems;
+};
 
-
-
-
-
-    electronicsEl.addEventListener("click", function showElectronics() {
-        introEl.innerHTML = "";
-        sectionEl.innerHTML = "";
-        
-        for (let i = 0; i < products.length; i++) {
-            console.log("products" + [i] + ".title: " + products[i].title);
-            let productTitle = products[i].title;
-            let productImage = products[i].image;
-            let description = products[i].description;
-            let category = products[i].category;
-            let price = products[i].price;
-            let productId = products[i].id;
-            if (category === "electronics") {
-                sectionEl.innerHTML += `<article class='card'> 
-                    <div class='card-body'> 
-                    <h5 class="card-title">${productTitle}</h5>
-                     <figure class='figure card'> 
-                    <img class="figure-img img-fluid rounded" width=100% src="${productImage}"> 
-                    <p id='p1' class='card-text description-text'>
-                    ${description}
-                    <br>
-                    </p>
-                    <a id='a1' class='btn btn-success description-btn' onclick='alerter([${productId, productTitle, price}})'><b>Buy this product<br>
-                    ${price}</b></a>
-                     </div>
-                </article>`;
-            }
-        }
+// render cart items
+function renderCartItems() {
+    basketlistEl.innerHTML = "";
+    cart.forEach((item) => {
+        let price = item.price * localStorage.getItem("USD");
+        price = price.toFixed(0);
+        basketlistEl.innerHTML +=
+            `
+           <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
+            <td>${item.title}</td>
+            <td><b>${price} kr.</b></td>
+           <td><a id='a1' role="button" class="btn btn-light rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
+           <td><b>${item.numberOfUnits}</b></td><td><a id='a1' role="button" 
+           class='btn btn-light rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+        `
     });
 }
-function getId(id) {
-   
-    console.log("id:", id);
-    alert("The item is in the basket: "+ id);
-    localStorage.setItem("id", id);   
+//change number of units for an item
+
+function changeNumberOfUnits(action, id) {
+    cart = cart.map((item) => {
+        console.log(item.numberOfUnits);
+        let numberOfUnits = item.numberOfUnits;
+        console.log(numberOfUnits);
+        console.log("item.id: ", item.id);
+        console.log("id: ", id);
+        if (item.id === id) {
+            console.log("action: ", action);
+            if (action === "minus" && numberOfUnits > 1) {
+                numberOfUnits--;
+                console.log("numberOfUnits: ", numberOfUnits);
+            } else if (action === "plus") {
+                numberOfUnits++;
+            }
+        }
+        console.log("item", item);
+        return {
+            ...item,
+            numberOfUnits,
+        }
+    });
+
+    updateCart();
 }
-function getTitle(title) {
-    console.log("title: ", title);
-    localStorage.setItem("title", title);
+// remove item from cart
+function removeItemFromCart(id) {
+    console.log("removeItemFromCart");
+    cart = cart.filter((item) => item.id !== id);
+    if (cart.length === 0) {
+        basketEl.className = "invisible"
+    }
+
+    updateCart();
+    showCartIcon();
 }
-function getPrice(price) {
-    console.log("price: ", price);
-    localStorage.setItem("price", price);
+function showBasket() {
+    console.log("showBasket");
+    basketEl.className = "";
+
+}
+function showCartIcon() {
+
+    if (cart.length < 1) {
+        carticonEl.className = "visually-hidden";
+
+    } else {
+        carticonEl.className = "visible d-flex position-relative";
+
+    }
 }

@@ -9,6 +9,7 @@ const adress1El = document.getElementById("adress1");
 const adress2El = document.getElementById("adress2");
 const adress3El = document.getElementById("adress3");
 const adress4El = document.getElementById("adress4");
+const bodyEl = document.getElementById("body");
 
 const h1El = document.getElementById("h1");
 const basketEl = document.getElementById("basketlist");
@@ -19,20 +20,39 @@ const fraktEl = document.getElementById("radio")
 const sendButtonEl = document.getElementById("sendButton");
 
 
-let productId = localStorage.getItem("id");
-let productTitle = localStorage.getItem("title");
-let productPrice = localStorage.getItem("price");
-console.log("id: ", productId);
-console.log("title: ", productTitle);
-console.log("price: ", productPrice);
+// let productId = localStorage.getItem("id");
+// let productTitle = localStorage.getItem("title");
+// let productPrice = localStorage.getItem("price");
+// console.log("id: ", productId);
+// console.log("title: ", productTitle);
+// console.log("price: ", productPrice);
 
 let cart = JSON.parse(localStorage.getItem("CART")) || [];
 updateCart();
 
 console.log(cart);
 
-
+if (cart.length <1) {
+    bodyEl.innerHTML =
+`<h1 class="text-center">Your basket is empty</h1>
+<a href="/index.html"><button class="btn btn-success">Return to the webbshop</button></a>`
+}
 //functions
+
+getRate();
+function getRate() {
+    fetch('https://api.valuta.se/api/sek/rates/')
+        .then(res => res.json())
+        .then(data => render(data));
+
+    function render(rates) {
+        console.log(rates);
+        let arr = rates;
+        console.log("arr", arr);
+        console.log("arr", arr[4].value);
+        localStorage.setItem("USD", (arr[4].value) / 100);
+    }
+}
 
 function addToCart(id) {
     let productsLocal = localStorage.getItem("products");
@@ -68,16 +88,15 @@ function updateCart() {
 function renderSubTotal() {
     let totalPrice = 0, totalItems = 0;
     cart.forEach(item => {
-        totalPrice += item.price * item.numberOfUnits;
+        totalPrice += item.price * item.numberOfUnits * localStorage.getItem("USD");
         totalItems += item.numberOfUnits;
     });
     subtotalEl.innerHTML =
         `
-     
-    <tr>
-     <td><b><Em>Subtotal(${totalItems} items): $${totalPrice.toFixed(2)}</em></b></td>
-    </tr>     
-    `
+    
+        <div  class="d-flex align-self-flex-end"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
+        </div>
+        `
     totalItemsInCartEl.innerHTML = totalItems;
 };
 
@@ -85,26 +104,29 @@ function renderSubTotal() {
 function renderCartItems() {
     basketEl.innerHTML = "";
     cart.forEach((item) => {
+        let price = item.price * localStorage.getItem("USD");
+        price = price.toFixed(0);
         basketEl.innerHTML +=
             `
-           <td><img src="${item.image}" class="img-fluid" alt="${item.title}" onclick="removeItemFromCart(${item.id})"></td>
+           <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
             <td>${item.title}</td>
-            <td>${item.price}</td>
-           <td><a id='a1' class='btn btn-success description-btn' onclick="changeNumberOfUnits('minus', ${item.id})">- </a></td>
-           <td>${item.numberOfUnits}</td><td><a id='a1' class='btn btn-success description-btn' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+            <td><b>${price} kr.</b></td>
+           <td><a id='a1' role="button" class="btn btn-light rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
+           <td><b>${item.numberOfUnits}</b></td><td><a id='a1' role="button" 
+           class='btn btn-light rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
     });
-};
+}
 
 //add total price to cart
 
-function totalPrice(){
+function totalPrice() {
     let totalPrice = 0, totalItems = 0;
     cart.forEach(item => {
         totalPrice += item.price * item.numberOfUnits;
         totalItems += item.numberOfUnits;
     });
-    cart.push({orderTotalPrice: totalPrice})
+    cart.push({ orderTotalPrice: totalPrice })
 }
 //change number of units for an item
 
@@ -143,6 +165,7 @@ function removeItemFromCart(id) {
 
 //Eventlistener
 sendButtonEl.addEventListener('click', function sendOrder() {
+    console.log("sendOrder körs");
     console.log("cart.length", cart.length);
     if (cart.length < 1) {
         alert("Your basket is empty")
@@ -154,13 +177,20 @@ sendButtonEl.addEventListener('click', function sendOrder() {
 
     let index = (cart.length - 1);
     console.log("index", index);
-    let orderTotalPrice = JSON.stringify(cart.at((index)));
-    console.log("orderTotalPrice", orderTotalPrice);
+    let orderTotalPrice = cart.at((index));
+    console.log("orderTotalPrice: ", orderTotalPrice.orderTotalPrice);
+    orderTotalPrice = JSON.stringify(orderTotalPrice.orderTotalPrice);
+    console.log("orderTotalPrice:", orderTotalPrice);
     cart = cart.slice(0, index);
-    
+
     console.log("cart: ", cart);
-    cart = JSON.stringify(cart);
-    console.log("sendOrder körs");
+    let cartIds = "";
+    for (let i = 0; i < cart.length; i++) {
+        cartIds += cart[i].id + ", ";
+
+    }
+    console.log("cart.id", cartIds);
+    // cart = JSON.stringify(cart);
 
     //HÄMTA IN DATA FRÅN FORMULÄRFÄLTEN
     let frakt;
@@ -174,7 +204,6 @@ sendButtonEl.addEventListener('click', function sendOrder() {
     let username = usernameEl.value;
     let email = emailEl.value;
     let adress = adress1El.value + ", " + adress2El.value + ", " + adress3El.value + ", " + adress4El.value;
-    let quantity = "1";
     console.log("username: ", username);
     console.log("orderTime: ", orderTime);
     console.log("frakt: ", frakt);
@@ -182,22 +211,18 @@ sendButtonEl.addEventListener('click', function sendOrder() {
     console.log("adress: ", adress);
 
     console.log("cart: ", cart);
-    // let cartString;
-    // for (let i = 0; i < cart.length; i++) {
-    //     cartString += cart[i].title + cart[i].numberOfUnits + "\\";
+    
+localStorage.setItem("USERNAME", username);
 
-    // }
-    // cartString = cartString.replaceAll('.', '');
-    // console.log("cartString", cartString);
     if (!username || !frakt || !email || !adress) {
-        alert("Du måste fylla i dina uppgifter för att skapa en order")
+        alert("Please enter the required fields to place the order")
         return
     }
     //SÄTT SAMANANVÄNDARENS VÄRDEN TILL JSON-OBJEKT
     const body = JSON.stringify({
         "fields": {
             "products": {
-                "stringValue": cart
+                "stringValue": cartIds
             },
             "date": {
                 "timestampValue": orderTime
@@ -230,8 +255,7 @@ sendButtonEl.addEventListener('click', function sendOrder() {
     })
         .then(res => res.json())
         .then(data => console.log(data));
-    // localStorage.clear();
-    // setTimeout(finnishOrder, 2000);
+    setTimeout(finnishOrder, 2000);
 });
 
 
@@ -240,5 +264,7 @@ sendButtonEl.addEventListener('click', function sendOrder() {
 //     location.reload();
 // }
 function finnishOrder() {
-    location.assign("http://127.0.0.1:5500/order.html")
+    location.assign("/order.html");
+        // localStorage.clear();
+
 }
