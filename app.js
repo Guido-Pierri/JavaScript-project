@@ -64,7 +64,7 @@ function getRate() {
 fetch('https://fakestoreapi.com/products')
     .then(res => res.json())
     .then(json1 => renderJson(json1))
-// .catch (error => console.log(error));
+    .catch(error => console.log(error));
 
 function renderJson(json1) {
     let products = json1;

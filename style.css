@@ -8,6 +8,10 @@
 .bg-dark-subtle {
     --bs-bg-opacity: .5;
 }
+html,
+body {
+    overflow-x: hidden;
+}
 .rounded-circle {
     display: flex;
     height: 20px;
