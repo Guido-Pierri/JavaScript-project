@@ -265,6 +265,6 @@ localStorage.setItem("USERNAME", username);
 // }
 function finnishOrder() {
     location.assign("/order.html");
-        // localStorage.clear();
+        localStorage.clear();
 
 }
