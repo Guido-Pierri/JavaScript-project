@@ -94,7 +94,7 @@ function renderJson(json1) {
         if (category === "men's clothing") {
             productsEl.innerHTML += `
             <div class="card-group border-white d-flex flex-column m-5 justify-content-center" >
-            <div class='card border border-0 d-flex ' style="width: 18rem;">
+            <div class='card border border-0 d-flex'>
             <img class="class="card-img-top " src="${productImage}" max-height=775px>
             <div class="card-img-overlay">
             <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' style="--bs-bg-opacity: .5; width=50px; height=50px;" role="button" onclick='addToCart(${productId}); showBasket()'>
