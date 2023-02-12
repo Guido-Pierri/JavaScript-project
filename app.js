@@ -93,7 +93,7 @@ function renderJson(json1) {
 
         // if (category === "men's clothing") {
         productsEl.innerHTML += `
-            <div class="card-group border-white flex-column m-5 justify-content-center" >
+            <div class="card-group border-white flex-column m-5 justify-content-center" style="align-items: flex-start;" >
             <div class='card border-0'>
             <img class="class="card-img-top img-fluid" src="${productImage}">
             <div class="card-img-overlay">
