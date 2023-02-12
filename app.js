@@ -93,16 +93,15 @@ function renderJson(json1) {
 
         // if (category === "men's clothing") {
         productsEl.innerHTML += `
-            <div class="card-group border-white d-flex flex-column m-5 justify-content-center" >
+            <div class="card-group border-white flex-column m-5 justify-content-center" >
             <div class='card border-0 d-flex'>
-            <img class="class="card-img-top " src="${productImage}" max-height=775px>
+            <img class="class="card-img-top " src="${productImage}">
             <div class="card-img-overlay">
-            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' style="--bs-bg-opacity: .5; width=50px; height=50px;" role="button" onclick='addToCart(${productId}); showBasket()'>
+            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" onclick='addToCart(${productId}); showBasket()'>
             </div>
-            <div class="card-body d-flex flex-column  justify-content-end">
-            <div class="p-2"><p class="card-text d-inline-block" style="max-width: 200px;"><b>${productTitle}</b></p>
+            <div class="card-body d-flex flex-column justify-content-end">
+            <div class="p-2"><p class="card-text"><b>${productTitle}</b></p>
             <p><b>${price} kr.</b></p>
-            <div class="overflow-scroll card-text h-10" ></div>
             </div>
             <div class="d-flex flex-column card-img-overlay justify-sef-center" style=" padding-left:0%; top:95%;">
             <button type="button" class="btn btn-light w-100 rounded-0" data-bs-toggle="modal"
