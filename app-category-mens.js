@@ -112,6 +112,8 @@ function renderJson(json1) {
            <div class="card-footer border border-0" style="">
            </div>
            </div>`;
+            // }
+
             modalEl.innerHTML +=
                 `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
