@@ -93,9 +93,10 @@ function renderSubTotal() {
     });
     subtotalEl.innerHTML =
         `
-    <td>
-     <b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></td>
-    `
+    
+        <div  class="d-flex align-self-flex-end"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
+        </div>
+        `
     totalItemsInCartEl.innerHTML = totalItems;
 };
 
@@ -107,14 +108,15 @@ function renderCartItems() {
         price = price.toFixed(0);
         basketEl.innerHTML +=
             `
-           <td><img src="${item.image}" class="img-fluid" alt="${item.title}" style="max-width: 100px"; onclick="removeItemFromCart(${item.id})"></td>
+           <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
             <td>${item.title}</td>
-            <td>${price}</td>
-           <td><a id='a1' class='btn btn-success rounded-circle' onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
-           <td>${item.numberOfUnits}</td><td><a id='a1' class='btn btn-success rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+            <td><b>${price} kr.</b></td>
+           <td><a id='a1' role="button" class="btn btn-light rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
+           <td><b>${item.numberOfUnits}</b></td><td><a id='a1' role="button" 
+           class='btn btn-light rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
     });
-};
+}
 
 //add total price to cart
 
@@ -202,7 +204,6 @@ sendButtonEl.addEventListener('click', function sendOrder() {
     let username = usernameEl.value;
     let email = emailEl.value;
     let adress = adress1El.value + ", " + adress2El.value + ", " + adress3El.value + ", " + adress4El.value;
-    let quantity = "1";
     console.log("username: ", username);
     console.log("orderTime: ", orderTime);
     console.log("frakt: ", frakt);
@@ -210,13 +211,9 @@ sendButtonEl.addEventListener('click', function sendOrder() {
     console.log("adress: ", adress);
 
     console.log("cart: ", cart);
-    // let cartString;
-    // for (let i = 0; i < cart.length; i++) {
-    //     cartString += cart[i].title + cart[i].numberOfUnits + "\\";
+    
+localStorage.setItem("USERNAME", username);
 
-    // }
-    // cartString = cartString.replaceAll('.', '');
-    // console.log("cartString", cartString);
     if (!username || !frakt || !email || !adress) {
         alert("Please enter the required fields to place the order")
         return
@@ -258,7 +255,6 @@ sendButtonEl.addEventListener('click', function sendOrder() {
     })
         .then(res => res.json())
         .then(data => console.log(data));
-    // localStorage.clear();
     setTimeout(finnishOrder, 2000);
 });
 
@@ -268,5 +264,7 @@ sendButtonEl.addEventListener('click', function sendOrder() {
 //     location.reload();
 // }
 function finnishOrder() {
-    location.assign("/order.html")
+    location.assign("/order.html");
+        // localStorage.clear();
+
 }
