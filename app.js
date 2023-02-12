@@ -95,7 +95,7 @@ function renderJson(json1) {
         productsEl.innerHTML += `
             <div class="card-group border-white flex-column m-5 justify-content-center" >
             <div class='card border-0'>
-            <img class="class="card-img-top " src="${productImage}">
+            <img class="class="card-img-top img-fluid" src="${productImage}">
             <div class="card-img-overlay">
             <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" onclick='addToCart(${productId}); showBasket()'>
             </div>
