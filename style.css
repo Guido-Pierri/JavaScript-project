@@ -8,10 +8,10 @@
     --bs-bg-opacity: .5;
 }
 
-html,
+/* html,
 body {
     overflow-x: hidden;
-}
+} */
 .admin{
         overflow-x: visible;
 }
