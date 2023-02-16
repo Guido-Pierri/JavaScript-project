@@ -57,40 +57,47 @@
             </article>
         </section>
         <br>
-        <section class="visually-hidden d-flex " id="basket">
-            <div class="d-flex align-items-center justify-content-evenly">
-                <h1 class="text-center d-flex">Your shopping bag</h1>
-                <div class="d-flex position-relative" id="carticon">
-                    <a href="/checkout.html" style="padding: 0;">
-                        <img width="60" src="./shopping-bag.png" alt="cart" class="d-flex justify-content-start">
-                    </a>
-                    <div id="totalitemsincart"
-                        class="navbar-brand position-absolute top-50 start-50 translate-middle text-wrap fs-6"
-                        style="padding-top: 20px;"></div>
+        <section id="offcanvas">
+            <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+                aria-labelledby="offcanvasWithBothOptionsLabel">
+                <div class="offcanvas-header d-flex align-items-center justify-content-evenly bg-body-secondary">
+                    <h1 class="text-center d-flex offcanvas-title" id="offcanvasWithBothOptionsLabel">Your shopping bag</h1>
+                    <div class="d-flex position-relative" id="carticon">
+                        <a href="/checkout.html" style="padding: 0;">
+                            <img width="60" src="./shopping-bag.png" alt="cart" class="d-flex justify-content-start">
+                        </a>
+                        <div id="totalitemsincart"
+                            class="navbar-brand position-absolute top-50 start-50 translate-middle text-wrap fs-6"
+                            style="padding-top: 20px;"></div>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
-                
+                <div class="offcanvas-body">
+                    <section class="visually-hidden d-flex " id="basket">
+        
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="basketlist">
+                            </tbody>
+                        </table>
+                        <div id="subtotal" class="d-flex flex-column-reverse justify-content-between  mb-2">
+                        </div>
+        
+                    </section>
+                </div>
             </div>
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <th scope="col"></th>
-                        <th scope="col">Item</th>
-                        <th scope="col">Price</th>
-                        <th scope="col"></th>
-                        <th scope="col">Quantity</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody id="basketlist">
-                </tbody>
-            </table>
-            <div id="subtotal" class="d-flex flex-column-reverse justify-content-between  mb-2">
-            </div>
-            
         </section>
         
-        
-    </section>
+        </section>
     <section>
         <footer>
             <nav class="navbar  justify-content-evenly">

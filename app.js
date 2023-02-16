@@ -93,23 +93,24 @@ function renderJson(json1) {
 
         // if (category === "men's clothing") {
         productsEl.innerHTML += `
-            <div class="card-group border-white flex-column m-5 justify-content-center" style="align-items: flex-start;" >
-            <div class='card border-0'>
-            <img class="card-img-top img-fluid" src="${productImage}">
+            <div class="card-group border-white m-5 justify-content-center">
+            <div class='card border-0 d-flex'>
+            <a role="button" data-bs-toggle="modal"
+            data-bs-target="#picturemodal${i}" ><img class="card-img-top img-fluid" src="${productImage}"></a>
             <div class="card-img-overlay">
-            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" onclick='addToCart(${productId}); showBasket()'>
+            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+                aria-controls="offcanvasWithBothOptions"onclick='addToCart(${productId}); showBasket()'>
             </div>
-            <div class="card-body d-flex flex-column justify-content-end">
-            <div class="p-2"><p class="card-text"><b>${productTitle}</b></p>
+            <div class="card-body  flex-column" width=100px>
+            <p class="card-text text-truncate" style="max-width: 150px;"><b>${productTitle}</b></p>
             <p><b>${price} kr.</b></p>
-            </div>
             <div class="d-flex flex-column card-img-overlay justify-sef-center" style=" padding-left:0%; top:95%;">
             <button type="button" class="btn btn-light w-100 rounded-0" data-bs-toggle="modal"
              data-bs-target="#picturemodal${i}">Read more about this product</button></div>
             </div>
+            <div class="card-footer bg-transparent border-0"></div>
+
             </div>
-           <div class="card-footer border border-0" style="">
-           </div>
            </div>`;
         // }
 
