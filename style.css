@@ -8,15 +8,16 @@
     --bs-bg-opacity: .5;
 }
 
-/* html,
+html,
 body {
     overflow-x: hidden;
-} */
+}
 .admin{
         overflow-x: visible;
 }
-/* .card {
-    width: 30%;
+/* .card-img {
+    width: 300px;
+    margin: 20%;
 } */
 .rounded-circle {
     display: flex;
