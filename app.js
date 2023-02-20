@@ -43,6 +43,7 @@ const totalItemsInCartEl = document.getElementById("totalitemsincart");
 const carticonEl = document.getElementById("carticon");
 const checkoutbuttonEl = document.getElementById("checkoutbutton");
 const modalEl = document.getElementById("modal");
+const modalBasketEl = document.getElementById("offcanvasWithBothOptions");
 
 
 console.log(localStorage.getItem("USD"));
@@ -155,7 +156,6 @@ if (cart.length < 1) {
 }
 updateCart();
 showCartIcon();
-
 //functions
 
 function addToCart(id) {
@@ -263,6 +263,8 @@ function removeItemFromCart(id) {
 
     updateCart();
     showCartIcon();
+    emptyCart();
+
 }
 function showBasket() {
     console.log("showBasket");
@@ -277,5 +279,10 @@ function showCartIcon() {
     } else {
         carticonEl.className = "visible d-flex position-relative";
 
+    }
+}
+function emptyCart(){
+    if(cart.length ===0){
+        modalBasketEl.innerHTML = `<p>Your basket is empty</p>`
     }
 }
