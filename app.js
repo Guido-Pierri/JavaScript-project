@@ -94,27 +94,45 @@ function renderJson(json1) {
 
         // if (category === "men's clothing") {
         productsEl.innerHTML += `
-            <div class="card-group border-white m-5 justify-content-center">
-            <div class='card border-0 d-flex'>
-            <a role="button" data-bs-toggle="modal"
-            data-bs-target="#picturemodal${i}" ><img class="card-img-top img-fluid" src="${productImage}"></a>
-            <div class="card-img-overlay">
-            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
-                aria-controls="offcanvasWithBothOptions"onclick='addToCart(${productId}); showBasket()'>
-            </div>
-            <div class="card-body  flex-column" width=100px>
-            <p class="card-text text-truncate" style="max-width: 150px;"><b>${productTitle}</b></p>
-            <p><b>${price} kr.</b></p>
-            <div class="d-flex flex-column card-img-overlay justify-sef-center" style=" padding-left:0%; top:95%;">
-            <button type="button" class="btn btn-light w-100 rounded-0" data-bs-toggle="modal"
-             data-bs-target="#picturemodal${i}">Read more about this product</button></div>
-            </div>
-            <div class="card-footer bg-transparent border-0"></div>
-
-            </div>
-           </div>`;
+        <div class="col-6 col-md-6 col-lg-4 mb-3">
+        <div class="card h-100">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;>
+        
+        <div class="card-img-overlay">
+        <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle position-absolute top-0 end-0"" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+         aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+        <div class="card-body m-3 mb-0">
+        <div class="card-title">
+        <p class="card-text text-truncate" style="max-width: 150px;"><b>${productTitle}</b></p>
+        <div class="d-inline-flex ustify-content-between">
+        <p><b>${price} kr.</b></p>
+        
+         </div>
+         </div>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more</a>
+        </div>
+        
+        </div>
+        </div>
+        </div>
+            `;
         // }
-
+        //<div class="col-6 col-md-6 col-lg-4 mb-3">
+        // <div class="card h-100">
+        //     <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">
+        //         <img class="m-3" src="${productImage}" alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;></a>
+            
+        //     <div class="card-body m-3 mb-0">
+        //         <div class="card-title">
+        //             <p class="card-text text-truncate" style="max-width: 150px;"><b>${productTitle}</b></p>
+        //             <p><b>${price} kr.</b></p>
+        //         </div>
+        // </div>
+        //    </div > 
+        //<div class="card-img-overlay">
+        //     <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+        //         aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+        // </div>
         modalEl.innerHTML +=
             `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
