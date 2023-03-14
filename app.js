@@ -99,9 +99,9 @@ function renderJson(json1) {
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;>
         
         <div class="card-img-overlay">
-        <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle position-absolute top-0 end-0"" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+        <img src="add-to-cart.png" class="float-end position-absolute top-0 end-0"" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
          aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
-        <div class="card-body m-3 mb-0">
+        <div class="card-body m-0 mb-0">
         <div class="card-title">
         <p class="card-text text-truncate" style="max-width: 150px;"><b>${productTitle}</b></p>
         <div class="d-inline-flex ustify-content-between">
