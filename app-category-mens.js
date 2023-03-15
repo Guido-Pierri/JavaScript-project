@@ -94,17 +94,17 @@ function renderJson(json1) {
 
         if (category === "men's clothing") {
             productsEl.innerHTML += `
-        <div class="col-6 col-md-6 col-lg-4 mb-3">
+       <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
         <div class="card-body text-start">
         <div class="card-title">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
-        <div class="d-inline-flex justify-content-between">
-        <div class="d-flex flex-row d-flex justify-content-evenly"><p class="align-self-center mb-0">
-        <b>${price} kr.</b>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
         </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
-            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()"></div>
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
          <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
          
