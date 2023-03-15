@@ -98,21 +98,24 @@ function renderJson(json1) {
         <div class="card h-100 border border-0 m-3">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;>
         
-        <div class="card-img-overlay">
-        <img src="add-to-cart.png" class="float-end position-absolute top-0 end-0"" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
-         aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+        
         <div class="card-body m-0 mb-0">
         <div class="card-title">
-        <p class="card-text text-truncate" style="max-width: 150px;"><b>${productTitle}</b></p>
-        <div class="d-inline-flex ustify-content-between">
-        <p><b>${price} kr.</b></p>
+        <p class="card-text flex-wrap d-flex justify-content-start" ><b>${productTitle}</b></p>
+        <div class="d-inline-flex justify-content-between">
+        <p>
+        <b>${price} kr.</b>
+        </p>
         
          </div>
+         <div>add to basket
+         <img src="add-to-cart.png" class="d-inline-flex justify-content-between" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+         aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+        </div>
          </div>
          <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more</a>
         </div>
         
-        </div>
         </div>
         </div>
             `;
