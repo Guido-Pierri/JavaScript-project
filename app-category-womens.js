@@ -99,7 +99,7 @@ function renderJson(json1) {
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
         <div class="card-body">
         <div class="card-title">
-        <p class="card-text flex-wrap d-flex justify-content-start"><b>${productTitle}</b></p>
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-inline-flex justify-content-between">
         <div class="d-flex flex-row d-flex justify-content-evenly"><p class="align-self-center mb-0">
         <b>${price} kr.</b>
@@ -119,22 +119,7 @@ function renderJson(json1) {
         </div>
             `;
            }
-            //<div class="col-6 col-md-6 col-lg-4 mb-3">
-            // <div class="card h-100">
-            //     <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">
-            //         <img class="m-3" src="${productImage}" alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;></a>
-
-            //     <div class="card-body m-3 mb-0">
-            //         <div class="card-title">
-            //             <p class="card-text text-truncate" style="max-width: 150px;"><b>${productTitle}</b></p>
-            //             <p><b>${price} kr.</b></p>
-            //         </div>
-            // </div>
-            //    </div > 
-            //<div class="card-img-overlay">
-            //     <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
-            //         aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
-            // </div>
+            
             modalEl.innerHTML +=
                 `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
