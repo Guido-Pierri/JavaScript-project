@@ -43,6 +43,8 @@ const totalItemsInCartEl = document.getElementById("totalitemsincart");
 const carticonEl = document.getElementById("carticon");
 const checkoutbuttonEl = document.getElementById("checkoutbutton");
 const modalEl = document.getElementById("modal");
+const modalBasketEl = document.getElementById("offcanvasWithBothOptions");
+
 
 console.log(localStorage.getItem("USD"));
 getRate();
@@ -63,7 +65,7 @@ function getRate() {
 fetch('https://fakestoreapi.com/products')
     .then(res => res.json())
     .then(json1 => renderJson(json1))
-// .catch (error => console.log(error));
+    .catch(error => console.log(error));
 
 function renderJson(json1) {
     let products = json1;
@@ -77,41 +79,48 @@ function renderJson(json1) {
 
     productsEl.innerHTML = "";
     for (let i = 0; i < products.length; i++) {
-            let productTitle = products[i].title;
-            let productImage = products[i].image;
-            let description = products[i].description;
-            let category = products[i].category;
+        let productTitle = products[i].title;
+        let productImage = products[i].image;
+        let description = products[i].description;
+        let category = products[i].category;
+        let rate = products[i].rating.rate;
+        let count = products[i].rating.count;
 
-            let price = products[i].price * localStorage.getItem("USD");
-            price = price.toFixed(0);
-            let productId = products[i].id;
-            let rate = products[i].rating.rate;
-            let count = products[i].rating.count;
-            // console.log("json:",jsonobject);
-            // console.log("values: ", values);
+        let price = products[i].price * localStorage.getItem("USD");
+        price = price.toFixed(0);
+        let productId = products[i].id;
+        // console.log("json:",jsonobject);
+        // console.log("values: ", values);
 
-            if (category === "electronics") {
-                productsEl.innerHTML += `
-            <div class="card-group border-white flex-column m-5 justify-content-center" style="align-items: flex-start;" >
-            <div class='card border-0'>
-            <img class="card-img-top img-fluid" src="${productImage}">
-            <div class="card-img-overlay">
-            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" onclick='addToCart(${productId}); showBasket()'>
-            </div>
-            <div class="card-body d-flex flex-column justify-content-end">
-            <div class="p-2"><p class="card-text"><b>${productTitle}</b></p>
-            <p><b>${price} kr.</b></p>
-            </div>
-            <div class="d-flex flex-column card-img-overlay justify-sef-center" style=" padding-left:0%; top:95%;">
-            <button type="button" class="btn btn-light w-100 rounded-0" data-bs-toggle="modal"
-             data-bs-target="#picturemodal${i}">Read more about this product</button></div>
-            </div>
-            </div>
-           <div class="card-footer border border-0" style="">
-           </div>
-           </div>`;
-                modalEl.innerHTML +=
-                    `
+        if (category === "electronics") {
+            productsEl.innerHTML += `
+        <div class="col-6 col-md-6 col-lg-4 mb-3">
+        <div class="card h-100 border border-0 m-3">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <div class="card-body">
+        <div class="card-title">
+        <p class="card-text flex-wrap d-flex justify-content-start"><b>${productTitle}</b></p>
+        <div class="d-inline-flex justify-content-between">
+        <div class="d-flex flex-row d-flex justify-content-evenly"><p class="align-self-center mb-0">
+        <b>${price} kr.</b>
+        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()"></div>
+         </div><br>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+        }
+            modalEl.innerHTML +=
+                `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -132,11 +141,10 @@ function renderJson(json1) {
                 </div>
             </div>
         </div>
-        `
-            }
-        }
-        ;
+        `}
     }
+    ;
+
 
     //cart array
     let cart = JSON.parse(localStorage.getItem("CART")) || [];
@@ -152,7 +160,6 @@ function renderJson(json1) {
     }
     updateCart();
     showCartIcon();
-
     //functions
 
     function addToCart(id) {
@@ -190,29 +197,30 @@ function renderJson(json1) {
     }
 
     // calculate and render subtotal
-function renderSubTotal() {
-    let totalPrice = 0, totalItems = 0;
-    cart.forEach(item => {
-        totalPrice += item.price * item.numberOfUnits * localStorage.getItem("USD");
-        totalItems += item.numberOfUnits;
-    });
-    subtotalEl.innerHTML =
-        `
+    function renderSubTotal() {
+        let totalPrice = 0, totalItems = 0;
+        cart.forEach(item => {
+            totalPrice += item.price * item.numberOfUnits * localStorage.getItem("USD");
+            totalItems += item.numberOfUnits;
+        });
+        subtotalEl.innerHTML =
+            `
     
         <div  class="d-flex align-self-flex-end"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
         </div>
         <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-secondary p-1 h-100 w-100 rounded-0"><b><em>Proceed to checkout</em></b></button></a>
         `
-    totalItemsInCartEl.innerHTML = totalItems;
-};
+        totalItemsInCartEl.innerHTML = totalItems;
+    };
+
     // render cart items
-function renderCartItems() {
-    basketlistEl.innerHTML = "";
-    cart.forEach((item) => {
-        let price = item.price * localStorage.getItem("USD");
-        price = price.toFixed(0);
-        basketlistEl.innerHTML +=
-            `
+    function renderCartItems() {
+        basketlistEl.innerHTML = "";
+        cart.forEach((item) => {
+            let price = item.price * localStorage.getItem("USD");
+            price = price.toFixed(0);
+            basketlistEl.innerHTML +=
+                `
            <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
             <td>${item.title}</td>
             <td><b>${price} kr.</b></td>
@@ -220,8 +228,8 @@ function renderCartItems() {
            <td><b>${item.numberOfUnits}</b></td><td><a id='a1' role="button" 
            class='btn btn-light rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
-    });
-}
+        });
+    }
     //change number of units for an item
 
     function changeNumberOfUnits(action, id) {
@@ -259,6 +267,8 @@ function renderCartItems() {
 
         updateCart();
         showCartIcon();
+        emptyCart();
+
     }
     function showBasket() {
         console.log("showBasket");
@@ -269,11 +279,15 @@ function renderCartItems() {
 
         if (cart.length < 1) {
             carticonEl.className = "visually-hidden";
-            // checkoutbuttonEl.className = "visually-hidden";
 
         } else {
             carticonEl.className = "visible d-flex position-relative";
-            // checkoutbuttonEl.className = "btn btn-primary position-fixed bottom-0 end-0 visible";
 
+        }
+    }
+    function emptyCart() {
+        if (cart.length === 0) {
+            modalBasketEl.innerHTML = `<p>Your basket is empty</p>
+        <p><a role="button" class="btn btn-secondary p-1 rounded" id="sendButton" onclick="localStorage.clear()" href="./index.html">Continue shopping</a></p>`
         }
     }

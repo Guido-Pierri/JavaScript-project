@@ -43,6 +43,8 @@ const totalItemsInCartEl = document.getElementById("totalitemsincart");
 const carticonEl = document.getElementById("carticon");
 const checkoutbuttonEl = document.getElementById("checkoutbutton");
 const modalEl = document.getElementById("modal");
+const modalBasketEl = document.getElementById("offcanvasWithBothOptions");
+
 
 console.log(localStorage.getItem("USD"));
 getRate();
@@ -63,7 +65,7 @@ function getRate() {
 fetch('https://fakestoreapi.com/products')
     .then(res => res.json())
     .then(json1 => renderJson(json1))
-// .catch (error => console.log(error));
+    .catch(error => console.log(error));
 
 function renderJson(json1) {
     let products = json1;
@@ -81,39 +83,58 @@ function renderJson(json1) {
         let productImage = products[i].image;
         let description = products[i].description;
         let category = products[i].category;
+        let rate = products[i].rating.rate;
+        let count = products[i].rating.count;
 
         let price = products[i].price * localStorage.getItem("USD");
         price = price.toFixed(0);
-
         let productId = products[i].id;
         // console.log("json:",jsonobject);
         // console.log("values: ", values);
 
-        let rate = products[i].rating.rate;
-        let count = products[i].rating.count;
-
         if (category === "women's clothing") {
             productsEl.innerHTML += `
-            <div class="card-group border-white flex-column m-5 justify-content-center" style="align-items: flex-start;" >
-            <div class='card border-0'>
-            <img class="card-img-top img-fluid" src="${productImage}">
-            <div class="card-img-overlay">
-            <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" onclick='addToCart(${productId}); showBasket()'>
-            </div>
-            <div class="card-body d-flex flex-column justify-content-end">
-            <div class="p-2"><p class="card-text"><b>${productTitle}</b></p>
-            <p><b>${price} kr.</b></p>
-            </div>
-            <div class="d-flex flex-column card-img-overlay justify-sef-center" style=" padding-left:0%; top:95%;">
-            <button type="button" class="btn btn-light w-100 rounded-0" data-bs-toggle="modal"
-             data-bs-target="#picturemodal${i}">Read more about this product</button></div>
-            </div>
-            </div>
-           <div class="card-footer border border-0" style="">
-           </div>
-           </div>`;
-            // }
+        <div class="col-6 col-md-6 col-lg-4 mb-3">
+        <div class="card h-100 border border-0 m-3">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <div class="card-body">
+        <div class="card-title">
+        <p class="card-text flex-wrap d-flex justify-content-start"><b>${productTitle}</b></p>
+        <div class="d-inline-flex justify-content-between">
+        <div class="d-flex flex-row d-flex justify-content-evenly"><p class="align-self-center mb-0">
+        <b>${price} kr.</b>
+        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()"></div>
+         </div><br>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+           }
+            //<div class="col-6 col-md-6 col-lg-4 mb-3">
+            // <div class="card h-100">
+            //     <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">
+            //         <img class="m-3" src="${productImage}" alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;></a>
 
+            //     <div class="card-body m-3 mb-0">
+            //         <div class="card-title">
+            //             <p class="card-text text-truncate" style="max-width: 150px;"><b>${productTitle}</b></p>
+            //             <p><b>${price} kr.</b></p>
+            //         </div>
+            // </div>
+            //    </div > 
+            //<div class="card-img-overlay">
+            //     <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
+            //         aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+            // </div>
             modalEl.innerHTML +=
                 `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -136,88 +157,86 @@ function renderJson(json1) {
                 </div>
             </div>
         </div>
-        `;
-        }
+        `}
     }
     ;
-}
 
-//cart array
-let cart = JSON.parse(localStorage.getItem("CART")) || [];
-console.log("cart", cart);
-console.log("cart.length", cart.length);
 
-if (cart.length < 1) {
-    basketEl.className = "invisible";
+    //cart array
+    let cart = JSON.parse(localStorage.getItem("CART")) || [];
+    console.log("cart", cart);
+    console.log("cart.length", cart.length);
 
-} else {
-    basketEl.className = "";
+    if (cart.length < 1) {
+        basketEl.className = "invisible";
 
-}
-updateCart();
-showCartIcon();
+    } else {
+        basketEl.className = "";
 
-//functions
-
-function addToCart(id) {
-
-    let productsLocal = localStorage.getItem("products");
-    let products = JSON.parse(productsLocal);
-    console.log("products: ", products);
-    console.log(id);
-    basketEl.scrollIntoView();
-
-    //check if product already exists in cart
-    if (cart.some((item) => item.id === id)) {
-        alert("Product already in cart")
-    }
-    else {
-        const item = products.find((product) => product.id === id)
-        // console.log(item);
-        cart.push({
-            ...item,
-            numberOfUnits: 1,
-        });
-        console.log(cart);
     }
     updateCart();
-}
-//update cart
-function updateCart() {
-    renderCartItems();
-    renderSubTotal();
     showCartIcon();
+    //functions
+
+    function addToCart(id) {
+
+        let productsLocal = localStorage.getItem("products");
+        let products = JSON.parse(productsLocal);
+        console.log("products: ", products);
+        console.log(id);
+        basketEl.scrollIntoView();
+
+        //check if product already exists in cart
+        if (cart.some((item) => item.id === id)) {
+            alert("Product already in cart")
+        }
+        else {
+            const item = products.find((product) => product.id === id)
+            // console.log(item);
+            cart.push({
+                ...item,
+                numberOfUnits: 1,
+            });
+            console.log(cart);
+        }
+        updateCart();
+    }
+    //update cart
+    function updateCart() {
+        renderCartItems();
+        renderSubTotal();
+        showCartIcon();
 
 
-    //sace cart to local storage
-    localStorage.setItem("CART", JSON.stringify(cart));
-}
+        //sace cart to local storage
+        localStorage.setItem("CART", JSON.stringify(cart));
+    }
 
-// calculate and render subtotal
-function renderSubTotal() {
-    let totalPrice = 0, totalItems = 0;
-    cart.forEach(item => {
-        totalPrice += item.price * item.numberOfUnits * localStorage.getItem("USD");
-        totalItems += item.numberOfUnits;
-    });
-    subtotalEl.innerHTML =
-        `
+    // calculate and render subtotal
+    function renderSubTotal() {
+        let totalPrice = 0, totalItems = 0;
+        cart.forEach(item => {
+            totalPrice += item.price * item.numberOfUnits * localStorage.getItem("USD");
+            totalItems += item.numberOfUnits;
+        });
+        subtotalEl.innerHTML =
+            `
     
         <div  class="d-flex align-self-flex-end"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
         </div>
         <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-secondary p-1 h-100 w-100 rounded-0"><b><em>Proceed to checkout</em></b></button></a>
         `
-    totalItemsInCartEl.innerHTML = totalItems;
-};
+        totalItemsInCartEl.innerHTML = totalItems;
+    };
 
-// render cart items
-function renderCartItems() {
-    basketlistEl.innerHTML = "";
-    cart.forEach((item) => {
-        let price = item.price * localStorage.getItem("USD");
-        price = price.toFixed(0);
-        basketlistEl.innerHTML +=
-            `
+    // render cart items
+    function renderCartItems() {
+        basketlistEl.innerHTML = "";
+        cart.forEach((item) => {
+            let price = item.price * localStorage.getItem("USD");
+            price = price.toFixed(0);
+            basketlistEl.innerHTML +=
+                `
            <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
             <td>${item.title}</td>
             <td><b>${price} kr.</b></td>
@@ -225,60 +244,66 @@ function renderCartItems() {
            <td><b>${item.numberOfUnits}</b></td><td><a id='a1' role="button" 
            class='btn btn-light rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
-    });
-}
-//change number of units for an item
+        });
+    }
+    //change number of units for an item
 
-function changeNumberOfUnits(action, id) {
-    cart = cart.map((item) => {
-        console.log(item.numberOfUnits);
-        let numberOfUnits = item.numberOfUnits;
-        console.log(numberOfUnits);
-        console.log("item.id: ", item.id);
-        console.log("id: ", id);
-        if (item.id === id) {
-            console.log("action: ", action);
-            if (action === "minus" && numberOfUnits > 1) {
-                numberOfUnits--;
-                console.log("numberOfUnits: ", numberOfUnits);
-            } else if (action === "plus") {
-                numberOfUnits++;
+    function changeNumberOfUnits(action, id) {
+        cart = cart.map((item) => {
+            console.log(item.numberOfUnits);
+            let numberOfUnits = item.numberOfUnits;
+            console.log(numberOfUnits);
+            console.log("item.id: ", item.id);
+            console.log("id: ", id);
+            if (item.id === id) {
+                console.log("action: ", action);
+                if (action === "minus" && numberOfUnits > 1) {
+                    numberOfUnits--;
+                    console.log("numberOfUnits: ", numberOfUnits);
+                } else if (action === "plus") {
+                    numberOfUnits++;
+                }
             }
-        }
-        console.log("item", item);
-        return {
-            ...item,
-            numberOfUnits,
-        }
-    });
+            console.log("item", item);
+            return {
+                ...item,
+                numberOfUnits,
+            }
+        });
 
-    updateCart();
-}
-// remove item from cart
-function removeItemFromCart(id) {
-    console.log("removeItemFromCart");
-    cart = cart.filter((item) => item.id !== id);
-    if (cart.length === 0) {
-        basketEl.className = "invisible"
+        updateCart();
     }
+    // remove item from cart
+    function removeItemFromCart(id) {
+        console.log("removeItemFromCart");
+        cart = cart.filter((item) => item.id !== id);
+        if (cart.length === 0) {
+            basketEl.className = "invisible"
+        }
 
-    updateCart();
-    showCartIcon();
-}
-function showBasket() {
-    console.log("showBasket");
-    basketEl.className = "";
-
-}
-function showCartIcon() {
-
-    if (cart.length < 1) {
-        carticonEl.className = "visually-hidden";
-        // checkoutbuttonEl.className = "visually-hidden";
-
-    } else {
-        carticonEl.className = "visible d-flex position-relative";
-        // checkoutbuttonEl.className = "btn btn-primary position-fixed bottom-0 end-0 visible";
+        updateCart();
+        showCartIcon();
+        emptyCart();
 
     }
-}
+    function showBasket() {
+        console.log("showBasket");
+        basketEl.className = "";
+
+    }
+    function showCartIcon() {
+
+        if (cart.length < 1) {
+            carticonEl.className = "visually-hidden";
+
+        } else {
+            carticonEl.className = "visible d-flex position-relative";
+
+        }
+    }
+    function emptyCart() {
+        if (cart.length === 0) {
+            modalBasketEl.innerHTML = `<p>Your basket is empty</p>
+        <p><a role="button" class="btn btn-secondary p-1 rounded" id="sendButton" onclick="localStorage.clear()" href="./index.html">Continue shopping</a></p>`
+        }
+    }
