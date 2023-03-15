@@ -101,18 +101,17 @@ function renderJson(json1) {
         <div class="card-title">
         <p class="card-text flex-wrap d-flex justify-content-start"><b>${productTitle}</b></p>
         <div class="d-inline-flex justify-content-between">
-        <p>
+        <div class="d-flex flex-row d-flex justify-content-evenly"><p class="align-self-center mb-0">
         <b>${price} kr.</b>
-        </p>
+        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()"></div>
          </div><br>
          <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
          
          </div>
+         
          </div>
-         <div class="card-footer d-flex justify-content-evenly bg-body border-0">
-            <div>add to your basket</div><div class="align-self-center"><img src="add-to-cart.png" class="d-inline-flex justify-content-between" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
-            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()"></div>
-                </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
         </div>
         
         </div>
