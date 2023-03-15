@@ -113,7 +113,7 @@ function renderJson(json1) {
          aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
         </div>
          </div>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more</a>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
         </div>
         
         </div>
@@ -304,6 +304,7 @@ function showCartIcon() {
 }
 function emptyCart(){
     if(cart.length ===0){
-        modalBasketEl.innerHTML = `<p>Your basket is empty</p>`
+        modalBasketEl.innerHTML = `<p>Your basket is empty</p>
+        <p><a role="button" class="btn btn-secondary p-1 rounded" id="sendButton" onclick="localStorage.clear()" href="./index.html">Continue shopping</a></p>`
     }
 }
