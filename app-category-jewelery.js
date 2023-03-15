@@ -97,7 +97,7 @@ function renderJson(json1) {
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
-        <div class="card-body">
+        <div class="card-body text-start">
         <div class="card-title">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-inline-flex justify-content-between">
