@@ -95,7 +95,7 @@ fetch('https://fakestoreapi.com/products')
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
          <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
@@ -166,7 +166,7 @@ function renderAllProducts() {
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
          <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
@@ -235,7 +235,7 @@ function renderMens() {
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
          <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
@@ -304,7 +304,7 @@ function renderWomens() {
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
          <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
@@ -370,7 +370,7 @@ function renderJewelery() {
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
          <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
@@ -440,7 +440,7 @@ function renderElectronics() {
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
          <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
@@ -543,7 +543,7 @@ function renderSubTotal() {
     
         <div  class="d-flex align-self-flex-end"><p class="m-0"><b><Em>Subtotal(${totalItems} items): ${totalPrice.toFixed(0)} kr.</em></b></p>
         </div>
-        <a href="/checkout.html"><button id="checkoutbutton" class="btn btn-secondary p-1 h-100 w-100 rounded-0"><b><em>Proceed to checkout</em></b></button></a>
+        <a href="resourses/html/checkout.html"><button id="checkoutbutton" class="btn btn-secondary p-1 h-100 w-100 rounded-0"><b><em>Proceed to checkout</em></b></button></a>
         `
     totalItemsInCartEl.innerHTML = totalItems;
 };
