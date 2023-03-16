@@ -97,9 +97,7 @@ function renderJson(json1) {
         <b>${price} kr.</b></div>
         </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
-         </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
-         
+         </div><br>         
          </div>
          
          </div>
@@ -172,9 +170,7 @@ function renderAllProducts() {
         <b>${price} kr.</b></div>
         </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
-         </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
-         
+         </div><br>         
          </div>
          
          </div>
@@ -244,9 +240,7 @@ function renderMens() {
         <b>${price} kr.</b></div>
         </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
-         </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
-         
+         </div><br>         
          </div>
          
          </div>
@@ -316,9 +310,7 @@ function renderWomens() {
         <b>${price} kr.</b></div>
         </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
-         </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
-         
+         </div><br>         
          </div>
          
          </div>
@@ -386,9 +378,7 @@ function renderJewelery() {
         <b>${price} kr.</b></div>
         </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
-         </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
-         
+         </div>
          </div>
          
          </div>
@@ -460,9 +450,7 @@ function renderElectronics() {
         <b>${price} kr.</b></div>
         </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
-         </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
-         
+         </div><br>         
          </div>
          
          </div>
