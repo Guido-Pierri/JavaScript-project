@@ -66,17 +66,12 @@ fetch('https://fakestoreapi.com/products')
     .then(res => res.json())
     .then(json1 => renderJson(json1))
     .catch(error => console.log(error));
-
-function renderJson(json1) {
-    let products = json1;
-    console.log(products);
-
-    //fetch currency exchane
-
-
-
-    localStorage.setItem('products', JSON.stringify(products));
-
+    
+    function renderJson(json1) {
+        let products = json1;
+        console.log(products);
+        localStorage.setItem('products', JSON.stringify(products));
+        
     productsEl.innerHTML = "";
     for (let i = 0; i < products.length; i++) {
         let productTitle = products[i].title;
@@ -89,10 +84,7 @@ function renderJson(json1) {
         let price = products[i].price * localStorage.getItem("USD");
         price = price.toFixed(0);
         let productId = products[i].id;
-        // console.log("json:",jsonobject);
-        // console.log("values: ", values);
 
-        // if (category === "men's clothing") {
         productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
@@ -118,23 +110,7 @@ function renderJson(json1) {
         
         </div>
             `;
-        // }
-        //<div class="col-6 col-md-6 col-lg-4 mb-3">
-        // <div class="card h-100">
-        //     <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">
-        //         <img class="m-3" src="${productImage}" alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;></a>
-            
-        //     <div class="card-body m-3 mb-0">
-        //         <div class="card-title">
-        //             <p class="card-text text-truncate" style="max-width: 150px;"><b>${productTitle}</b></p>
-        //             <p><b>${price} kr.</b></p>
-        //         </div>
-        // </div>
-        //    </div > 
-        //<div class="card-img-overlay">
-        //     <img src="add-to-cart.png" class="float-end rounded-circle rounded-circle2 bg-dark-subtle" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions"
-        //         aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
-        // </div>
+
         modalEl.innerHTML +=
             `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -160,8 +136,351 @@ function renderJson(json1) {
         `}
 }
 ;
+function renderAllProducts() {
+    let products = JSON.parse(localStorage.getItem("products"));
+    console.log(products);
+    productsEl.innerHTML = "";
+    console.log(products.length)
+    for (let i = 0; i < products.length; i++) {
+        let productTitle = products[i].title;
+        let productImage = products[i].image;
+        let description = products[i].description;
+        let category = products[i].category;
+        let rate = products[i].rating.rate;
+        let count = products[i].rating.count;
 
+        let price = products[i].price * localStorage.getItem("USD");
+        price = price.toFixed(0);
+        let productId = products[i].id;
+        // console.log("json:",jsonobject);
+        // console.log("values: ", values);
 
+        // if (category === "electronics") {
+            productsEl.innerHTML += `
+        <div class="col-6 col-md-6 col-lg-4 mb-3">
+        <div class="card h-100 border border-0 m-3">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <div class="card-body text-start">
+        <div class="card-title">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+        // }
+
+        modalEl.innerHTML +=
+            `
+        <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">${productTitle}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class= "card-img-top" src="${productImage}" width="100%">
+                        <p>${description}</p>
+                        <p>Rating: ${rate}, Count: ${count}<p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        `}
+}
+function renderMens() {
+    let products = JSON.parse(localStorage.getItem("products"));
+    console.log(products);
+    productsEl.innerHTML = "";
+    console.log(products.length)
+    for (let i = 0; i < products.length; i++) {
+        let productTitle = products[i].title;
+        let productImage = products[i].image;
+        let description = products[i].description;
+        let category = products[i].category;
+        let rate = products[i].rating.rate;
+        let count = products[i].rating.count;
+
+        let price = products[i].price * localStorage.getItem("USD");
+        price = price.toFixed(0);
+        let productId = products[i].id;
+
+         if (category === "men's clothing") {
+        productsEl.innerHTML += `
+        <div class="col-6 col-md-6 col-lg-4 mb-3">
+        <div class="card h-100 border border-0 m-3">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <div class="card-body text-start">
+        <div class="card-title">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+         }
+
+        modalEl.innerHTML +=
+            `
+        <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">${productTitle}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class= "card-img-top" src="${productImage}" width="100%">
+                        <p>${description}</p>
+                        <p>Rating: ${rate}, Count: ${count}<p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        `}
+}
+function renderWomens() {
+    let products = JSON.parse(localStorage.getItem("products"));
+    console.log(products);
+    productsEl.innerHTML = "";
+    console.log(products.length)
+    for (let i = 0; i < products.length; i++) {
+        let productTitle = products[i].title;
+        let productImage = products[i].image;
+        let description = products[i].description;
+        let category = products[i].category;
+        let rate = products[i].rating.rate;
+        let count = products[i].rating.count;
+
+        let price = products[i].price * localStorage.getItem("USD");
+        price = price.toFixed(0);
+        let productId = products[i].id;
+
+        if (category === "women's clothing") {
+            productsEl.innerHTML += `
+        <div class="col-6 col-md-6 col-lg-4 mb-3">
+        <div class="card h-100 border border-0 m-3">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <div class="card-body text-start">
+        <div class="card-title">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+        }
+        modalEl.innerHTML +=
+            `
+        <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">${productTitle}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class= "card-img-top" src="${productImage}" width="100%">
+                        <p>${description}</p>
+                        <p>Rating: ${rate}, Count: ${count}<p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        `}
+}
+function renderJewelery() {
+    let products = JSON.parse(localStorage.getItem("products"));
+    console.log(products);
+    productsEl.innerHTML = "";
+    console.log(products.length)
+    for (let i = 0; i < products.length; i++) {
+        let productTitle = products[i].title;
+        let productImage = products[i].image;
+        let description = products[i].description;
+        let category = products[i].category;
+        let rate = products[i].rating.rate;
+        let count = products[i].rating.count;
+        let price = products[i].price * localStorage.getItem("USD");
+        price = price.toFixed(0);
+        let productId = products[i].id;
+        if (category === "jewelery") {
+            productsEl.innerHTML += `
+        <div class="col-6 col-md-6 col-lg-4 mb-3">
+        <div class="card h-100 border border-0 m-3">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <div class="card-body text-start">
+        <div class="card-title">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+        }
+        modalEl.innerHTML +=
+            `
+        <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">${productTitle}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class= "card-img-top" src="${productImage}" width="100%">
+                        <p>${description}</p>
+                        <p>Rating: ${rate}, Count: ${count}<p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        `}
+}
+function renderElectronics() {
+    let products = JSON.parse(localStorage.getItem("products"));
+    console.log(products);
+    productsEl.innerHTML = "";
+    console.log(products.length)
+    for (let i = 0; i < products.length; i++) {
+        let productTitle = products[i].title;
+        let productImage = products[i].image;
+        let description = products[i].description;
+        let category = products[i].category;
+        let rate = products[i].rating.rate;
+        let count = products[i].rating.count;
+
+        let price = products[i].price * localStorage.getItem("USD");
+        price = price.toFixed(0);
+        let productId = products[i].id;
+        // console.log("json:",jsonobject);
+        // console.log("values: ", values);
+
+        if (category === "electronics") {
+            productsEl.innerHTML += `
+        <div class="col-6 col-md-6 col-lg-4 mb-3">
+        <div class="card h-100 border border-0 m-3">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <div class="card-body text-start">
+        <div class="card-title">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+        }
+       
+        modalEl.innerHTML +=
+            `
+        <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">${productTitle}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img class= "card-img-top" src="${productImage}" width="100%">
+                        <p>${description}</p>
+                        <p>Rating: ${rate}, Count: ${count}<p>
+                        
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        `}
+}
 //cart array
 let cart = JSON.parse(localStorage.getItem("CART")) || [];
 console.log("cart", cart);
