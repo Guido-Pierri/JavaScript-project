@@ -66,12 +66,12 @@ fetch('https://fakestoreapi.com/products')
     .then(res => res.json())
     .then(json1 => renderJson(json1))
     .catch(error => console.log(error));
-    
-    function renderJson(json1) {
-        let products = json1;
-        console.log(products);
-        localStorage.setItem('products', JSON.stringify(products));
-        
+
+function renderJson(json1) {
+    let products = json1;
+    console.log(products);
+    localStorage.setItem('products', JSON.stringify(products));
+
     productsEl.innerHTML = "";
     for (let i = 0; i < products.length; i++) {
         let productTitle = products[i].title;
@@ -88,17 +88,17 @@ fetch('https://fakestoreapi.com/products')
         productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
-        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;onclick="addToCart(${productId}); showBasket()"">
         <div class="card-body text-start">
         <div class="card-title">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
          
          </div>
          
@@ -156,7 +156,7 @@ function renderAllProducts() {
         // console.log("values: ", values);
 
         // if (category === "electronics") {
-            productsEl.innerHTML += `
+        productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
@@ -224,8 +224,8 @@ function renderMens() {
         price = price.toFixed(0);
         let productId = products[i].id;
 
-         if (category === "men's clothing") {
-        productsEl.innerHTML += `
+        if (category === "men's clothing") {
+            productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
@@ -250,7 +250,7 @@ function renderMens() {
         
         </div>
             `;
-         }
+        }
 
         modalEl.innerHTML +=
             `
@@ -456,7 +456,7 @@ function renderElectronics() {
         </div>
             `;
         }
-       
+
         modalEl.innerHTML +=
             `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -556,12 +556,15 @@ function renderCartItems() {
         price = price.toFixed(0);
         basketlistEl.innerHTML +=
             `
-           <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px"></td>
+            <td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16" onclick="removeItemFromCart(${item.id})">
+  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+</svg></td>
+            <td><img src="${item.image}" alt="${item.title}" onclick="removeItemFromCart(${item.id})" style="max-width: 50px" title="click to remove the item from the cart"></td>
             <td>${item.title}</td>
             <td><b>${price} kr.</b></td>
-           <td><a id='a1' role="button" class="btn btn-light rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
-           <td><b>${item.numberOfUnits}</b></td><td><a id='a1' role="button" 
-           class='btn btn-light rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
+            <td><a id='a1' role="button" class="btn btn-light rounded-circle" onclick="changeNumberOfUnits('minus', ${item.id})">-</a></td>
+            <td><b>${item.numberOfUnits}</b></td><td><a id='a1' role="button" 
+            class='btn btn-light rounded-circle' onclick="changeNumberOfUnits('plus', ${item.id})">+</a></td>
         `
     });
 }
@@ -620,8 +623,8 @@ function showCartIcon() {
 
     }
 }
-function emptyCart(){
-    if(cart.length ===0){
+function emptyCart() {
+    if (cart.length === 0) {
         modalBasketEl.innerHTML = `<p>Your basket is empty</p>
         <p><a role="button" class="btn btn-secondary p-1 rounded" id="sendButton" onclick="localStorage.clear()" href="./index.html">Continue shopping</a></p>`
     }
