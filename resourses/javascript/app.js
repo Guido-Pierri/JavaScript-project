@@ -88,7 +88,7 @@ function renderJson(json1) {
         productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
-        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;onclick="addToCart(${productId}); showBasket()"">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
@@ -127,6 +127,10 @@ function renderJson(json1) {
                         
                     </div>
                     <div class="modal-footer">
+
+                    <button type="button" class="btn btn-light rounded-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" 
+                    onclick="addToCart(${productId}); showBasket()">Add to basket
+                    <img  src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" height="20px"></button>
                         <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
 
                     </div>
@@ -159,17 +163,17 @@ function renderAllProducts() {
         productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
-        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
          
          </div>
          
@@ -181,7 +185,6 @@ function renderAllProducts() {
         
         </div>
             `;
-        // }
 
         modalEl.innerHTML +=
             `
@@ -199,6 +202,10 @@ function renderAllProducts() {
                         
                     </div>
                     <div class="modal-footer">
+
+                    <button type="button" class="btn btn-light rounded-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" 
+                    onclick="addToCart(${productId}); showBasket()">Add to basket
+                    <img  src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" height="20px"></button>
                         <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
 
                     </div>
@@ -228,17 +235,17 @@ function renderMens() {
             productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
-        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
          
          </div>
          
@@ -251,9 +258,8 @@ function renderMens() {
         </div>
             `;
         }
-
-        modalEl.innerHTML +=
-            `
+            modalEl.innerHTML +=
+                `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -268,6 +274,10 @@ function renderMens() {
                         
                     </div>
                     <div class="modal-footer">
+
+                    <button type="button" class="btn btn-light rounded-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" 
+                    onclick="addToCart(${productId}); showBasket()">Add to basket
+                    <img  src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" height="20px"></button>
                         <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
 
                     </div>
@@ -297,17 +307,17 @@ function renderWomens() {
             productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
-        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
          
          </div>
          
@@ -336,6 +346,10 @@ function renderWomens() {
                         
                     </div>
                     <div class="modal-footer">
+
+                    <button type="button" class="btn btn-light rounded-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" 
+                    onclick="addToCart(${productId}); showBasket()">Add to basket
+                    <img  src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" height="20px"></button>
                         <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
 
                     </div>
@@ -363,17 +377,17 @@ function renderJewelery() {
             productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
-        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
          
          </div>
          
@@ -402,6 +416,10 @@ function renderJewelery() {
                         
                     </div>
                     <div class="modal-footer">
+
+                    <button type="button" class="btn btn-light rounded-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" 
+                    onclick="addToCart(${productId}); showBasket()">Add to basket
+                    <img  src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" height="20px"></button>
                         <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
 
                     </div>
@@ -433,17 +451,17 @@ function renderElectronics() {
             productsEl.innerHTML += `
         <div class="col-6 col-md-6 col-lg-4 mb-3">
         <div class="card h-100 border border-0 m-3">
-        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
         <b>${price} kr.</b></div>
-        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" " id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div><br>
-         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}">more...</a>
+         <a role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">more...</a>
          
          </div>
          
@@ -456,7 +474,6 @@ function renderElectronics() {
         </div>
             `;
         }
-
         modalEl.innerHTML +=
             `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -473,6 +490,10 @@ function renderElectronics() {
                         
                     </div>
                     <div class="modal-footer">
+
+                    <button type="button" class="btn btn-light rounded-0" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions" 
+                    onclick="addToCart(${productId}); showBasket()">Add to basket
+                    <img  src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" height="20px"></button>
                         <button type="button" class="btn btn-light rounded-0" data-bs-dismiss="modal">Close</button>
 
                     </div>
