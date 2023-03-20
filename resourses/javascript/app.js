@@ -89,7 +89,7 @@ function renderJson(json1) {
 
         productsEl.innerHTML += `
         <div class="col">
-        <div class="card h-100 border-1">
+        <div class="card h-100 border-0">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start d-flex flex-column">
         <div class="card-title d-flex flex-column">
