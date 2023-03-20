@@ -88,8 +88,8 @@ function renderJson(json1) {
         let productId = products[i].id;
 
         productsEl.innerHTML += `
-        <div class="col-sm-6">
-        <div class="card h-100 border border-0 m-3">
+        <div class="col">
+        <div class="card h-100 border-1">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start d-flex flex-column">
         <div class="card-title d-flex flex-column">
@@ -111,9 +111,9 @@ function renderJson(json1) {
         </div>
             `;
         productsElSm.innerHTML += `
-        <div class="col-sm-6">
-        <div class="card h-100 border border-0 m-3">
-        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
+        <div class="col-sm-4">
+        <div class="card h-100 border border-1 m-3">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 200px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start d-flex flex-column">
         <div class="card-title d-flex flex-column">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
