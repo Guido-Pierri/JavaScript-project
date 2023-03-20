@@ -111,8 +111,8 @@ function renderJson(json1) {
         </div>
             `;
         productsElSm.innerHTML += `
-        <div class="col-sm-4">
-        <div class="card h-100 border border-1 m-3">
+        <div class="col-sm-4 col-md-4 m-0 p-0">
+        <div class="card h-100 border border-0">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 200px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start d-flex flex-column">
         <div class="card-title d-flex flex-column">
@@ -166,6 +166,8 @@ function renderAllProducts() {
     let products = JSON.parse(localStorage.getItem("products"));
     console.log(products);
     productsEl.innerHTML = "";
+    productsElSm.innerHTML = "";
+
     console.log(products.length)
     for (let i = 0; i < products.length; i++) {
         let productTitle = products[i].title;
@@ -181,10 +183,9 @@ function renderAllProducts() {
         // console.log("json:",jsonobject);
         // console.log("values: ", values);
 
-        // if (category === "electronics") {
         productsEl.innerHTML += `
-        <div class="col-6 col-md-6 col-lg-4 mb-3">
-        <div class="card h-100 border border-0 m-3">
+        <div class="col-6 col-md-6 col-lg-4">
+        <div class="card h-100 border border-0">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
@@ -205,7 +206,29 @@ function renderAllProducts() {
         
         </div>
             `;
-
+        productsElSm.innerHTML += `
+        <div class="col-sm-4 col-md-4 m-0 p-0">
+        <div class="card h-100 border border-0">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 200px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
+        <div class="card-body text-start d-flex flex-column">
+        <div class="card-title d-flex flex-column">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
         modalEl.innerHTML +=
             `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -238,6 +261,8 @@ function renderMens() {
     let products = JSON.parse(localStorage.getItem("products"));
     console.log(products);
     productsEl.innerHTML = "";
+    productsElSm.innerHTML = "";
+
     console.log(products.length)
     for (let i = 0; i < products.length; i++) {
         let productTitle = products[i].title;
@@ -253,11 +278,34 @@ function renderMens() {
 
         if (category === "men's clothing") {
             productsEl.innerHTML += `
-        <div class="col-6 col-md-6 col-lg-4 mb-3">
-        <div class="card h-100 border border-0 m-3">
+        <div class="col-6 col-md-6 col-lg-4">
+        <div class="card h-100 border border-0">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+            productsElSm.innerHTML += `
+        <div class="col-sm-4 col-md-4 m-0 p-0">
+        <div class="card h-100 border border-0">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 200px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
+        <div class="card-body text-start d-flex flex-column">
+        <div class="card-title d-flex flex-column">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
@@ -308,6 +356,7 @@ function renderWomens() {
     let products = JSON.parse(localStorage.getItem("products"));
     console.log(products);
     productsEl.innerHTML = "";
+    productsElSm.innerHTML ="";
     console.log(products.length)
     for (let i = 0; i < products.length; i++) {
         let productTitle = products[i].title;
@@ -323,11 +372,34 @@ function renderWomens() {
 
         if (category === "women's clothing") {
             productsEl.innerHTML += `
-        <div class="col-6 col-md-6 col-lg-4 mb-3">
-        <div class="card h-100 border border-0 m-3">
+        <div class="col-6 col-md-6 col-lg-4">
+        <div class="card h-100 border border-0">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+            productsElSm.innerHTML += `
+        <div class="col-sm-4 col-md-4 m-0 p-0">
+        <div class="card h-100 border border-0">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 200px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
+        <div class="card-body text-start d-flex flex-column">
+        <div class="card-title d-flex flex-column">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
@@ -378,6 +450,7 @@ function renderJewelery() {
     let products = JSON.parse(localStorage.getItem("products"));
     console.log(products);
     productsEl.innerHTML = "";
+    productsElSm.innerHTML = "";
     console.log(products.length)
     for (let i = 0; i < products.length; i++) {
         let productTitle = products[i].title;
@@ -391,8 +464,8 @@ function renderJewelery() {
         let productId = products[i].id;
         if (category === "jewelery") {
             productsEl.innerHTML += `
-        <div class="col-6 col-md-6 col-lg-4 mb-3">
-        <div class="card h-100 border border-0 m-3">
+        <div class="col-6 col-md-6 col-lg-4">
+        <div class="card h-100 border border-0">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
@@ -403,6 +476,29 @@ function renderJewelery() {
         </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
             aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
          </div>
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+            productsElSm.innerHTML += `
+        <div class="col-sm-4 col-md-4 m-0 p-0">
+        <div class="card h-100 border border-0">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 200px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
+        <div class="card-body text-start d-flex flex-column">
+        <div class="card-title d-flex flex-column">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>         
          </div>
          
          </div>
@@ -446,6 +542,8 @@ function renderElectronics() {
     let products = JSON.parse(localStorage.getItem("products"));
     console.log(products);
     productsEl.innerHTML = "";
+    productsElSm.innerHTML = "";
+
     console.log(products.length)
     for (let i = 0; i < products.length; i++) {
         let productTitle = products[i].title;
@@ -463,11 +561,34 @@ function renderElectronics() {
 
         if (category === "electronics") {
             productsEl.innerHTML += `
-        <div class="col-6 col-md-6 col-lg-4 mb-3">
-        <div class="card h-100 border border-0 m-3">
+        <div class="col-6 col-md-6 col-lg-4">
+        <div class="card h-100 border border-0">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start">
         <div class="card-title">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
+            productsElSm.innerHTML += `
+        <div class="col-sm-4 col-md-4 m-0 p-0">
+        <div class="card h-100 border border-0">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 200px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
+        <div class="card-body text-start d-flex flex-column">
+        <div class="card-title d-flex flex-column">
         <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
         <div class="d-flex justify-content-between">
         <div class="d-flex "><p class="align-self-center mb-0">
