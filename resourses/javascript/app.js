@@ -35,6 +35,7 @@
 "use strict";
 
 const productsEl = document.getElementById("products");
+const productsElSm = document.getElementById("products2");
 const menEl = document.getElementById("men");
 const basketlistEl = document.getElementById("basketlist");
 const basketEl = document.getElementById("basket");
@@ -73,6 +74,7 @@ function renderJson(json1) {
     localStorage.setItem('products', JSON.stringify(products));
 
     productsEl.innerHTML = "";
+    productsElSm.innerHTML = "";
     for (let i = 0; i < products.length; i++) {
         let productTitle = products[i].title;
         let productImage = products[i].image;
@@ -86,7 +88,7 @@ function renderJson(json1) {
         let productId = products[i].id;
 
         productsEl.innerHTML += `
-        <div class="col-6 col-md-6 col-lg-4 mb-3">
+        <div class="col-sm-6">
         <div class="card h-100 border border-0 m-3">
         <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
         <div class="card-body text-start d-flex flex-column">
@@ -108,7 +110,29 @@ function renderJson(json1) {
         
         </div>
             `;
-
+        productsElSm.innerHTML += `
+        <div class="col-sm-6">
+        <div class="card h-100 border border-0 m-3">
+        <img src="${productImage}" class="card-img"  alt="${productTitle}" style="height: 300px; width: 100%; object-fit: contain;" role="button" data-bs-toggle="modal" data-bs-target="#picturemodal${i}" title="click learn more about this product">
+        <div class="card-body text-start d-flex flex-column">
+        <div class="card-title d-flex flex-column">
+        <p class="card-text  text-truncate" style="max-width: 250px;"><b>${productTitle}</b></p>
+        <div class="d-flex justify-content-between">
+        <div class="d-flex "><p class="align-self-center mb-0">
+        <b>${price} kr.</b></div>
+        </p><img class="align-self-center" src="resourses/images/add-to-cart.png" title="add to your cart" id='a1' role="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" height="20px"
+            aria-controls="offcanvasWithBothOptions" onclick="addToCart(${productId}); showBasket()">
+         </div><br>         
+         </div>
+         
+         </div>
+         <div class="card-footer d-flex justify-content-evenly bg-body border-0"></div>
+        </div>
+        
+        </div>
+        
+        </div>
+            `;
         modalEl.innerHTML +=
             `
         <div class="modal fade" id="picturemodal${i}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
